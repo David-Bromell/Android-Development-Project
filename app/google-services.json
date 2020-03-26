@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1079579301369",
+    "firebase_url": "https://tutorfinder-5caff.firebaseio.com",
+    "project_id": "tutorfinder-5caff",
+    "storage_bucket": "tutorfinder-5caff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1079579301369:android:c778488e28fee07b9b5928",
+        "android_client_info": {
+          "package_name": "ie.ul.tutorfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1079579301369-fi05ik8m7cjanhfvf1ipsaf8d94kqr5t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ie.ul.tutorfinder",
+            "certificate_hash": "c1f956c815f3bcafbbeee3aa78f418fa0548bfa9"
+          }
+        },
+        {
+          "client_id": "1079579301369-67m62aj357hs028tfirjqqpjpes4vhh9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyABN0IwlN_qxZD4C6pAJisoErK3EBY1d5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1079579301369-67m62aj357hs028tfirjqqpjpes4vhh9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
