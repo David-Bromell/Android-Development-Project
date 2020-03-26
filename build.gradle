@@ -7,8 +7,9 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
-        
+        classpath 'com.android.tools.build:gradle:3.6.1'
+        classpath 'com.google.gms:google-services:4.2.0'
+
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }
@@ -24,4 +25,14 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+apply plugin: 'com.android.application'
+// Add this line
+apply plugin: 'com.google.gms.google-services'
+
+dependencies {
+    // add the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics:17.2.2'
+    // add SDKs for any other desired Firebase products
+// https://firebase.google.com/docs/android/setup#available-libraries
 }
