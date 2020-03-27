@@ -2,4 +2,9 @@
     <string name="app_name">TutorFinder</string>
     <string name="profile_picture">Profile Picture</string>
     <string name="textview">TextView</string>
+    <string name="my_profile">My Profile</string>
+    <string name="my_messages">My Messages</string>
+    <string name="find_tutor">Find Tutor</string>
+    <string name="my_tutors">My Tutors</string>
+    <string name="my_lessons">My Lessons</string>
 </resources>
