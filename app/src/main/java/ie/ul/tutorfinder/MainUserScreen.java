@@ -13,10 +13,6 @@ public class MainUserScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_user_screen);
 
-        Intent intent = getIntent();
-        String name = intent.getStringExtra(MainActivity.EXTRA_NAME);
 
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(name);
     }
 }
