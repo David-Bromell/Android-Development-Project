@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    public static String EXTRA_NAME = "";
+    public static String EXTRA_NAME = "ie.ul.tutorfinder.MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void LoadUserPage(String EXTRA_NAME){
+    public void LoadUserPage(String name){
         Intent intent = new Intent (this, MainUserScreen.class);
         //EditText editText = (EditText) findViewById(R.id.editText);
         //String name = editText.getText().toString();
-        intent.putExtra(EXTRA_NAME, true);
+        intent.putExtra(EXTRA_NAME, name);
         startActivity(intent);
     }
 
@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                EXTRA_NAME = user.getDisplayName();
-                LoadUserPage(EXTRA_NAME);
+                String name = user.getDisplayName();
+                LoadUserPage(name);
                 System.out.println( "Sign in Successful! \n" +
                         "name = " + user.getDisplayName() + "\n" +
                         "email = " + user.getEmail() + "\n" +
