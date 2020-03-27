@@ -6,80 +6,58 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class MainActivity extends AppCompatActivity {
-    Button login;
+public class LoginActivity extends AppCompatActivity {
+
+
     Toolbar toolbar;
-    EditText email;
-    EditText password;
-    Button signup;
+    EditText userPass;
+    EditText userEmail;
+    Button userLogin;
 
     FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
-        email = findViewById( R.id.etEmail );
-        password = findViewById( R.id.etPassword );
-        signup = findViewById( R.id.btnSignup );
-        login = findViewById( R.id.btnLogin );
 
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_login );
+
+        userEmail = findViewById( R.id.etUserEmail );
+        userPass = findViewById( R.id.etUserPass );
+        userLogin = findViewById( R.id.btnUserLogin );
         firebaseAuth = FirebaseAuth.getInstance();
-        signup.setOnClickListener( new View.OnClickListener() {
+
+        userLogin.setOnClickListener( new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
-                firebaseAuth.createUserWithEmailAndPassword( email.getText().toString(), password.getText().toString() )
+                firebaseAuth.signInWithEmailAndPassword( userEmail.getText().toString(),
+                        userPass.getText().toString() )
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText( MainActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
+                                    startActivity( new Intent( LoginActivity.this, MainUserScreen.class ) );
                                 } else {
-                                    Toast.makeText( MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
-
+                                    Toast.makeText( LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                                 }
+
                             }
                         } );
             }
-        } );
 
-        login.setOnClickListener(new View.OnClickListener() {
-
-
-            @Override
-            public void onClick(View view) {
-                startActivity( new Intent(MainActivity.this, LoginActivity.class));
-            }
         } );
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
