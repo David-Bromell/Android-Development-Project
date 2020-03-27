@@ -3,6 +3,7 @@ package ie.ul.tutorfinder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    public static String EXTRA_NAME = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void LoadUserPage(String EXTRA_NAME){
+        Intent intent = new Intent (this, MainUserScreen.class);
+        //EditText editText = (EditText) findViewById(R.id.editText);
+        //String name = editText.getText().toString();
+        intent.putExtra(EXTRA_NAME, true);
+        startActivity(intent);
+    }
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult( requestCode, resultCode, data );
 
@@ -51,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
             if (resultCode == RESULT_OK) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                EXTRA_NAME = user.getDisplayName();
+                LoadUserPage(EXTRA_NAME);
                 System.out.println( "Sign in Successful! \n" +
                         "name = " + user.getDisplayName() + "\n" +
                         "email = " + user.getEmail() + "\n" +
@@ -61,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-                    System.out.println( "No internet conncection" );
+                    System.out.println( "No internet connection" );
                     return;
                 }
 

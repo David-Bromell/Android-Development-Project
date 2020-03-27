@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TutorFinder</string>
+    <string name="profile_picture">Profile Picture</string>
+    <string name="textview">TextView</string>
 </resources>
