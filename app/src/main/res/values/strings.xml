@@ -8,9 +8,4 @@
     <string name="my_tutors">My Tutors</string>
     <string name="my_lessons">My Lessons</string>
     <string name="sign_up" />
-    <string name="title_activity_maps">Map</string>
-    <string name="google_maps_API_key">AIzaSyBM8Z0pRGeprChFt24iHsw7K3fKf69Ic0U</string>
-
-    <string name="app_name2">GoogleMaps</string>
-    <string name="title_activity_maps2">Map</string>
 </resources>
