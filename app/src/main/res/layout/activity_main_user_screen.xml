@@ -14,7 +14,7 @@
         android:layout_marginTop="19dp"
         android:text="@string/my_lessons"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button3" />
+        app:layout_constraintTop_toBottomOf="@+id/MyMessagesBtn" />
 
     <Button
         android:id="@+id/button5"
@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/MyMessagesBtn"
         android:layout_width="350dp"
         android:layout_height="53dp"
         android:layout_marginStart="29dp"
