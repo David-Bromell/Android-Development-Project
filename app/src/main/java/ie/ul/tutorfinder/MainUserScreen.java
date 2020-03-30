@@ -11,6 +11,10 @@ import android.widget.TextView;
 public class MainUserScreen extends AppCompatActivity {
 
     private Button MyMessagesBtn;
+    private Button MyProfileBtn1;
+    private Button MyLessonsBtn1;
+    private Button MyTutorsBtn1;
+    private Button FindTutorBtn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class MainUserScreen extends AppCompatActivity {
 
         TextView textView = findViewById(R.id.textView);
         //textView.setText(name);
+        //Link to message button
         MyMessagesBtn = findViewById(R.id.MyMessagesBtn);
         MyMessagesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,11 +35,77 @@ public class MainUserScreen extends AppCompatActivity {
 
             }
         });
+        //link to profile button
+        MyProfileBtn1 = findViewById(R.id.MyProfileBtn);
+        MyProfileBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyProfileActivity();
+            }
+
+        });
+
+        MyLessonsBtn1 = findViewById(R.id.MyLessonsBtn);
+        MyLessonsBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyLessonsActivity();
+            }
+
+        });
+
+        MyTutorsBtn1 = findViewById(R.id.MyTutorsBtn);
+        MyTutorsBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyTutorsActivity();
+            }
+
+        });
+
+        FindTutorBtn1 = findViewById(R.id.FindTutorsBtn);
+        FindTutorBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFindTutorsActivity();
+            }
+
+        });
 
     }
 
-    public void openMessangerActivity(){
+    // activity to open messenger
+    public void openMessangerActivity() {
         Intent intent = new Intent(this, MessangerActivity.class);
         startActivity(intent);
+
+    } // activity to open profile
+
+    public void openMyProfileActivity() {
+        Intent intentProfile = new Intent(this, ProfileActivity.class);
+        startActivity(intentProfile);
+
+    } // activity to open my lessons
+
+    public void openMyLessonsActivity() {
+        Intent intentLessons = new Intent(this, MyLessonsActivity.class);
+        startActivity(intentLessons);
     }
+
+    public void openMyTutorsActivity() {
+        Intent intentTutors = new Intent(this, MyTutorsActivity.class);
+        startActivity(intentTutors);
+    }
+
+    public void openFindTutorsActivity() {
+        Intent intentFindTutors = new Intent(this, FindTutorsActivity.class);
+        startActivity(intentFindTutors);
+    }
+
+
+
 }
+
+
+
+
