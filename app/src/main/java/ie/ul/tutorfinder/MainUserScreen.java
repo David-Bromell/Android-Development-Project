@@ -31,11 +31,12 @@ public class MainUserScreen extends AppCompatActivity {
         MyMessagesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMessangerActivity();
+                openMessengerActivity();
 
             }
         });
         //link to profile button
+
         MyProfileBtn1 = findViewById(R.id.MyProfileBtn);
         MyProfileBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,8 +76,8 @@ public class MainUserScreen extends AppCompatActivity {
     }
 
     // activity to open messenger
-    public void openMessangerActivity() {
-        Intent intent = new Intent(this, MessangerActivity.class);
+    public void openMessengerActivity() {
+        Intent intent = new Intent(this, MessageTabsActivity.class);
         startActivity(intent);
 
     } // activity to open profile
