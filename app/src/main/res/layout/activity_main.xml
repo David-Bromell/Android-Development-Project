@@ -16,33 +16,89 @@
        android:minHeight="?attr/actionBarSize"
        android:theme="?attr/actionBarTheme" />
 
-   <EditText
-       android:id="@+id/etEmail"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:ems="10"
-       android:hint="Email"
-       android:inputType="textEmailAddress" />
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:ems="20"
+        android:text="Welcome to Tutor Finder!"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
-   <EditText
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="20"
+        android:text="Sign up by filling out the following: "
+        android:textAlignment="center"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Email"
+        android:inputType="textEmailAddress" />
+
+    <EditText
        android:id="@+id/etPassword"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:ems="10"
-       android:hint="password"
+       android:hint="Password"
        android:inputType="textPassword" />
 
-   <Button
-       android:id="@+id/btnSignup"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="signup" />
+    <EditText
+        android:id="@+id/etBirthdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Birth Date"
+        android:inputType="date" />
 
-   <Button
-       android:id="@+id/btnLogin"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:text="Login" />
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Mobile Number"
+        android:inputType="phone" />
+
+    <Spinner
+        android:id="@+id/spinnerUserType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:spinnerMode="dropdown" />
+
+    <Button
+        android:id="@+id/btnSignup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/Signup" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:ems="20"
+        android:text="Already have an account? Login here: "
+        android:textAlignment="center"
+        android:textColor="#40AC16"
+        android:textSize="24sp" />
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/Login" />
 
 </LinearLayout>
 
