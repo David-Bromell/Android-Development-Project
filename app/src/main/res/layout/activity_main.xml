@@ -73,6 +73,7 @@
         android:id="@+id/spinnerUserType"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:entries="@array/userTypes"
         android:spinnerMode="dropdown" />
 
     <Button
