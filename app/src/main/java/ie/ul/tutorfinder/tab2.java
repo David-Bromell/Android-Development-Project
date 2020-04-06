@@ -22,6 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import Adapter.UserAdaptProfo;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +33,7 @@ public class tab2<UserAdapter> extends Fragment {
 
         private RecyclerView recyclerView;
         private UserAdapter userAdapter;
-        private List<User> mUser;
+        private List<User> User;
 
 public tab2() {
         // Required empty public constructor
@@ -46,7 +48,7 @@ public tab2() {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        mUser= new ArrayList<>();
+        User= new ArrayList<>();
         readUser();
         return view;
 
@@ -59,19 +61,24 @@ public tab2() {
                 reference.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                mUser.clear();
+                                User.clear();
                                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                                         User user = snapshot.getValue(User.class);
                                         assert user != null;
                                         assert firebaseUser !=null;
-                                        if(user.getName().equals(firebaseUser.getDisplayName())){
-                                                mUser.add(user);
+                                        if(user.getName()!= null){
+                                                User.add(user);
 
                                         }
+
                                 }
 
-                                //userAdapter = new UserAdapter(getContext(), mUser);
-                                //recyclerView.setAdapter(userAdapter);
+
+                        userAdapter = (UserAdapter) new UserAdaptProfo(getContext(), User);
+                                recyclerView.setAdapter((RecyclerView.Adapter) userAdapter);
+
+
+
 
 
                         }
