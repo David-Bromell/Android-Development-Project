@@ -21,6 +21,7 @@ package ie.ul.tutorfinder;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.AuthResult;
         import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
         email = findViewById( R.id.etEmail );
@@ -131,7 +132,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -141,6 +141,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
 }
 
 
