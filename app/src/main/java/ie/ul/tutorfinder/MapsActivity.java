@@ -36,14 +36,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+
+    public double  returnTheLongitude(){
+
+       double c1 = 52.674061;
+        return c1;
+    }
+    public double  returnTheLatitude(){
+
+        double c2 = -8.576747;
+        return c2;
+    }
     @Override
-    public void onMapReady(GoogleMap googleMap) {
+    public  void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap2 = googleMap;
 
 
         // Add a marker in csis and move the camera
-        LatLng CSIS = new LatLng( 52.674061, -8.575624);
+        LatLng CSIS = new LatLng(returnTheLongitude(),returnTheLatitude());
         mMap.addMarker( new MarkerOptions().position( CSIS ).title( "Marker in CSIS" ) );
         mMap.moveCamera( CameraUpdateFactory.newLatLng( CSIS ) );
 
