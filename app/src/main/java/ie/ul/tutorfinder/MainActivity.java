@@ -30,10 +30,10 @@ package ie.ul.tutorfinder;
 public class MainActivity extends AppCompatActivity {
     Button login;
     Toolbar toolbar;
-    private EditText email, password, name, phone;
+    EditText email, password, name, birthdate, phone;
     AppCompatSpinner userType;
     Button signup;
-   // ProgressBar progressBar;
+    //ProgressBar progressBar;
 
 
     FirebaseAuth firebaseAuth;
@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         signup = findViewById( R.id.btnSignup );
         login = findViewById( R.id.btnLogin );
         name = findViewById(R.id.etFullName);
+        birthdate = findViewById(R.id.etBirthdate);
         phone = findViewById(R.id.etMobile);
         userType = findViewById(R.id.spinnerUserType);
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         signup.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // progressBar.setVisibility(View.VISIBLE);
+              //  progressBar.setVisibility(View.VISIBLE);
                 firebaseAuth.createUserWithEmailAndPassword( email.getText().toString(), password.getText().toString() )
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
@@ -110,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
                                             name.getText().toString(),
                                             email.getText().toString(),
                                             phone.getText().toString(),
-                                            userType.getSelectedItem().toString()
-
+                                            userType.getSelectedItem().toString(),
+                                            birthdate.getText().toString()
                                     );
 
                                     FirebaseDatabase.getInstance()
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
                                                             .getCurrentUser()
                                                             .getUid()
                                                     ).setValue(user);
-                                 //   progressBar.setVisibility(View.GONE);
+                                   // progressBar.setVisibility(View.GONE);
                                     Toast.makeText( MainActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
                                 } else {
                                     Toast.makeText( MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
@@ -138,7 +139,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity( new Intent(MainActivity.this, LoginActivity.class));
             }
         } );
-
 
     }
 

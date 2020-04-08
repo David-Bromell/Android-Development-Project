@@ -7,12 +7,12 @@ public class User {
 
     }
 
-    public User(String name, String email, String phone, String userType) {
+    public User(String name, String email, String phone, String userType, String birthdate) {
         this.Name = name;
         this.email = email;
         this.phone = phone;
         this.userType = userType;
-
+        this.Birthdate = birthdate;
     }
 
     public String getName() {
@@ -46,6 +46,15 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
+
+    public String getBirthdate() {
+        return Birthdate;
+    }
+
+    public void setBirthdate(String birthdate) {
+        Birthdate = birthdate;
+    }
+
+
+
 }
-
-
