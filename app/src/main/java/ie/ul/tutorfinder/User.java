@@ -1,18 +1,18 @@
 package ie.ul.tutorfinder;
 
 public class User {
-    public String Name, email, phone, userType, Birthdate = null;
+    private String Name, email, phone, userType, Birthdate = null;
 
     public User() {
 
     }
 
-    public User(String name, String email, String phone, String userType, String birthdate) {
+    public User(String name, String email, String phone, String userType) {
         this.Name = name;
         this.email = email;
         this.phone = phone;
         this.userType = userType;
-        this.Birthdate = birthdate;
+
     }
 
     public String getName() {
@@ -46,15 +46,6 @@ public class User {
     public void setUserType(String userType) {
         this.userType = userType;
     }
-
-    public String getBirthdate() {
-        return Birthdate;
-    }
-
-    public void setBirthdate(String birthdate) {
-        Birthdate = birthdate;
-    }
-
-
-
 }
+
+

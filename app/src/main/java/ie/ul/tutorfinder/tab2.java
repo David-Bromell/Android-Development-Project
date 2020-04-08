@@ -53,7 +53,7 @@ public tab2() {
         return view;
 
         // Inflate the layout for this fragment
-               // return inflater.inflate(R.layout.fragment_tab2, container, false);
+        //return inflater.inflate(R.layout.fragment_tab2, container, false);
         }
         private void readUser(){
                 final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
