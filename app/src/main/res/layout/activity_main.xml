@@ -77,6 +77,22 @@
         android:hint="Mobile Number"
         android:inputType="phone" />
 
+    <EditText
+        android:id="@+id/etLongitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Longitude"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/etLatitude"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Latitude"
+        android:inputType="phone" />
+
     <Spinner
         android:id="@+id/spinnerUserType"
         android:layout_width="match_parent"

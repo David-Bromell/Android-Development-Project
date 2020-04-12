@@ -11,7 +11,6 @@ package ie.ul.tutorfinder;
         import android.widget.EditText;
         import android.widget.Toast;
         import android.widget.Toolbar;
-        import android.widget.ProgressBar;
 
         import androidx.annotation.NonNull;
         import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +20,6 @@ package ie.ul.tutorfinder;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.AuthResult;
         import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -30,7 +28,7 @@ package ie.ul.tutorfinder;
 public class MainActivity extends AppCompatActivity {
     Button login;
     Toolbar toolbar;
-    EditText email, password, name, birthdate, phone;
+    EditText email, password, name, birthdate, phone, Longitude, Latitude;
     AppCompatSpinner userType;
     Button signup;
     //ProgressBar progressBar;
@@ -63,7 +61,11 @@ public class MainActivity extends AppCompatActivity {
         name = findViewById(R.id.etFullName);
         birthdate = findViewById(R.id.etBirthdate);
         phone = findViewById(R.id.etMobile);
+        Longitude = findViewById(R.id.etLongitude);
+        Latitude = findViewById(R.id.etLatitude);
         userType = findViewById(R.id.spinnerUserType);
+
+
 
         mDisplayDate = (EditText) findViewById(R.id.etBirthdate);
 
@@ -97,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+
         firebaseAuth = FirebaseAuth.getInstance();
         signup.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -112,8 +115,10 @@ public class MainActivity extends AppCompatActivity {
                                             email.getText().toString(),
                                             phone.getText().toString(),
                                             userType.getSelectedItem().toString(),
-                                            birthdate.getText().toString()
-                                    );
+                                            birthdate.getText().toString(),
+                                            Longitude.getText().toString(),
+                                            Latitude.getText().toString()
+                                             );
 
                                     FirebaseDatabase.getInstance()
                                                     .getReference("Users")
@@ -131,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
                         });
             }
         });
+
 
 
         login.setOnClickListener(new View.OnClickListener() {
