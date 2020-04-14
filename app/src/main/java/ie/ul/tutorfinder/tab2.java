@@ -66,7 +66,7 @@ public tab2() {
                                         User user = snapshot.getValue(User.class);
                                         assert user != null;
                                         assert firebaseUser !=null;
-                                        if(user.getName()!= null){
+                                        if(user != null){
                                                 User.add(user);
 
                                         }
