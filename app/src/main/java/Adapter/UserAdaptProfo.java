@@ -1,6 +1,7 @@
 package Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import ie.ul.tutorfinder.MessageTabsActivity;
 import ie.ul.tutorfinder.R;
 import ie.ul.tutorfinder.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -37,8 +39,18 @@ public class UserAdaptProfo extends RecyclerView.Adapter<UserAdaptProfo.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        User user = mUser.get(position);
+        final User user = mUser.get(position);
         holder.username.setText(user.getName());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MessageTabsActivity.class);
+                intent.putExtra("userName", user.getName());
+                mContext.startActivity(intent);
+
+            }
+        });
 
 
     }

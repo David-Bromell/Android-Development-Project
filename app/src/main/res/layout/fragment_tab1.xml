@@ -13,15 +13,15 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="3dp"
+        android:autofillHints=""
         android:ems="10"
         android:hint="@string/type_your_message_here"
         android:inputType="textPersonName"
         tools:layout_editor_absoluteX="4dp"
-        tools:layout_editor_absoluteY="551dp"
-        android:autofillHints="" />
+        tools:layout_editor_absoluteY="551dp" />
 
     <Button
-        android:id="@+id/SendBt"
+        android:id="@+id/SendBtn"
         android:layout_width="107dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
@@ -30,4 +30,11 @@
         android:text="@string/send"
         tools:layout_editor_absoluteX="276dp"
         tools:layout_editor_absoluteY="115dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleviwchat"
+        android:layout_width="408dp"
+        android:layout_height="549dp" />
+
+
 </RelativeLayout>
