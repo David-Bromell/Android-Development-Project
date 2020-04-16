@@ -8,18 +8,19 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1079579301369:android:c778488e28fee07b9b5928",
+        "mobilesdk_app_id": "1:1079579301369:android:fbab16e9538b38619b5928",
         "android_client_info": {
           "package_name": "ie.ul.tutorfinder"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1079579301369-fi05ik8m7cjanhfvf1ipsaf8d94kqr5t.apps.googleusercontent.com",
+          "client_id": "1079579301369-c94cls5d4duhfj6jjkksre3nv9f9fud8.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "ie.ul.tutorfinder",
-            "certificate_hash": "c1f956c815f3bcafbbeee3aa78f418fa0548bfa9"
+            "certificate_hash": "1f1a48efaeb8d560e3285b4f1a8a024beaeda3e2"
+
           }
         },
         {

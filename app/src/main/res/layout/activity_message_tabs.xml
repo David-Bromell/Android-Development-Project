@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tab1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Messages" />
+
+
+        <com.google.android.material.tabs.TabItem
+        android:id="@+id/Tab2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/contacts"/>
+
+      <!--  <com.google.android.material.tabs.TabItem
+        android:id="@+id/Tab3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="New Message">
+
+    </com.google.android.material.tabs.TabItem>-->
+
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>
