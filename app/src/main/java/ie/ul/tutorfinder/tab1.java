@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.text.method.TextKeyListener;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +69,9 @@ public class tab1 extends Fragment {
     }
 
 
-
+// this is what should push the message to the DB as a hashmap
         private void sendMessage(String sender, String recipient) {
+
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
             HashMap<String, Object> hasher = new HashMap<>();
