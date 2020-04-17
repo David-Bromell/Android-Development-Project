@@ -2,6 +2,7 @@ package ie.ul.tutorfinder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.EventLog;
 import android.widget.Toast;
@@ -34,6 +35,19 @@ public class EventActivity extends AppCompatActivity {
 
             @Override
             public void onDateUnselected(Date date) {
+
+
+                Calendar cal = Calendar.getInstance();
+
+                Intent intent = new Intent(Intent.ACTION_EDIT);
+                intent.setType("vnd.android.cursor.item/event");
+
+                intent.putExtra("beginTime", cal.getTimeInMillis());
+                intent.putExtra("allDay", true);
+                intent.putExtra("rrule", "FREQ=YEARLY");
+                intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                intent.putExtra("title", "A Test Event from android app");
+                startActivity(intent);
 
             }
 
