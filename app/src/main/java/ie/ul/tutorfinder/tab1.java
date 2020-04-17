@@ -68,9 +68,8 @@ public class tab1 extends Fragment {
             @Override
             public void onClick(View v) {
                 String message = txtBox.getText().toString();
-                // pas message varibalie
                 txtBox.setText("");
-                sendMessage("test", message);
+                sendMessage("","", message);
             }
         });
     }
@@ -78,14 +77,14 @@ public class tab1 extends Fragment {
 
 
 // this is what should push the message to the DB as a hashmap
-        private void sendMessage(String sender, String recipient) {
+        private void sendMessage(String sender, String recipient, String message) {
 
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
             HashMap<String, Object> hasher = new HashMap<>();
-            hasher.put("Send", sender);
-            hasher.put("Receiver", recipient);
-            hasher.put("Message", sender);
+            hasher.put("Sent by", sender);
+            hasher.put("Received by", recipient);
+            hasher.put("Message", message);
 
 
             reference.child("Messages").push().setValue(hasher);
