@@ -89,7 +89,7 @@ public class MainUserScreen extends AppCompatActivity {
     } // activity to open my lessons
 
     public void openMyLessonsActivity() {
-        Intent intentLessons = new Intent(this, MyLessonsActivity.class);
+        Intent intentLessons = new Intent(this, EventActivity.class);
         startActivity(intentLessons);
     }
 
