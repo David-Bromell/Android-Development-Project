@@ -6,8 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.method.TextKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -34,6 +38,7 @@ public class tab1 extends Fragment {
     DatabaseReference ref;
     Intent intent;
     private EditText txtBox;
+    private RecyclerView messagesList;
 
 
 
@@ -63,10 +68,13 @@ public class tab1 extends Fragment {
             @Override
             public void onClick(View v) {
                 String message = txtBox.getText().toString();
+                // pas message varibalie
                 txtBox.setText("");
+                sendMessage("test", message);
             }
         });
     }
+
 
 
 // this is what should push the message to the DB as a hashmap
@@ -81,7 +89,7 @@ public class tab1 extends Fragment {
 
 
             reference.child("Messages").push().setValue(hasher);
-        }
+}
 
 
 

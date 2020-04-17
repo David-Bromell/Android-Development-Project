@@ -48,7 +48,6 @@ public class UserAdaptProfo extends RecyclerView.Adapter<UserAdaptProfo.ViewHold
                 Intent intent = new Intent(context, MessageTabsActivity.class);
                 intent.putExtra("userName", user.getName());
                 context.startActivity(intent);
-
             }
         });
 

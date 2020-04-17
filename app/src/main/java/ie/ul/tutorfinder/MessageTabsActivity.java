@@ -57,4 +57,6 @@ public class MessageTabsActivity extends AppCompatActivity {
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
     }
+
+
 }

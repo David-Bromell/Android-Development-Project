@@ -55,6 +55,9 @@ public tab2() {
         // Inflate the layout for this fragment
         //return inflater.inflate(R.layout.fragment_tab2, container, false);
         }
+
+
+
         private void readUser(){
                 final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
