@@ -36,7 +36,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-
+/**
+ * Manipulates the map once available.
+ * This callback is triggered when the map is ready to be used.
+ * This is where we can add markers or lines, add listeners or move the camera. In this case,
+ * we just add a marker near Sydney, Australia.
+ * If Google Play services is not installed on the device, the user will be prompted to install
+ * it inside the SupportMapFragment. This method will only be triggered once the user has
+ * installed Google Play services and returned to the app.
+ */
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
@@ -46,16 +54,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     DatabaseReference databaseReference;
     FirebaseUser user;
     List<String> itemlist;
-
-
-
+    String uid;
     ArrayAdapter<String>adapter;
 
-
-
-   // itemlist = new ArrayList<>();
-
-    String uid;
+    //itemlist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,73 +74,45 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         databaseReference = FirebaseDatabase.getInstance().getReference();
 
-        databaseReference.addValueEventListener( new ValueEventListener() {
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                itemlist.clear();
+                String latitude = dataSnapshot.child(uid).child("Longitude").getValue(String.class);
+                String longitude = dataSnapshot.child( uid ).child( "Latitude" ).getValue( String.class );
 
+                itemlist.add(latitude);
+                itemlist.add(longitude);
+                //Log.d("YEEEEEET",itemlist.get(0));
+
+            }
 
             @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-    public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-        itemlist.clear();
-        String latitude = dataSnapshot.child(uid).child("Longitude").getValue(String.class);
-        String longitude = dataSnapshot.child( uid ).child( "Latitude" ).getValue( String.class );
-
-        itemlist.add(latitude);
-        itemlist.add(longitude);
-        Log.d("YEEEEEET",itemlist.get(0));
-
-
-
-
+            }
+        });
 
     }
 
+    // Read from the database
+    public String returnTheLongitude() {
 
+        //Log.d("YEEEEEET",itemlist.get(0));
+        String c1 = "1.35467383"; //itemlist.get(1)
+        //c1.toString();
+        return c1;
+    }
 
+    public String returnTheLatitude() {
 
-
-
-
-
-
+        String c2 = "1.2546785"; //itemlist.get(0)
+        //c2.toString();
+        return c2;
+    }
 
     @Override
-    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-    }
-} );
-
-
-        }
-
-
-
-/**
- * Manipulates the map once available.
- * This callback is triggered when the map is ready to be used.
- * This is where we can add markers or lines, add listeners or move the camera. In this case,
- * we just add a marker near Sydney, Australia.
- * If Google Play services is not installed on the device, the user will be prompted to install
- * it inside the SupportMapFragment. This method will only be triggered once the user has
- * installed Google Play services and returned to the app.
- */
-
-// Read from the database
-public  String returnTheLongitude() {
-
-        String c1 = itemlist.get(1);
-        c1.toString();
-        return c1;
-        }
-
-public String returnTheLatitude() {
-
-        String c2 = itemlist.get(0);
-        c2.toString();
-        return c2;
-        }
-
-@Override
-public void onMapReady(GoogleMap googleMap) {
+    public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
         mMap2 = googleMap;
 
@@ -152,6 +126,6 @@ public void onMapReady(GoogleMap googleMap) {
         mMap2.addMarker( new MarkerOptions().position( Kemmy ).title( "Marker in Kemmy" ) );
         mMap2.moveCamera( CameraUpdateFactory.newLatLng( Kemmy ) );
 
-        }
-        }
+    }
+}
 
