@@ -50,14 +50,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     ListView ll;
     private GoogleMap mMap;
-    private GoogleMap mMap2;
     DatabaseReference databaseReference;
     FirebaseUser user;
     List<String> itemlist;
     String uid;
     ArrayAdapter<String>adapter;
-
-    //itemlist = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,19 +69,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         uid = user.getUid();
         itemlist = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 itemlist.clear();
-                String latitude = dataSnapshot.child(uid).child("Longitude").getValue(String.class);
-                String longitude = dataSnapshot.child( uid ).child( "Latitude" ).getValue( String.class );
+                String latitude = dataSnapshot.child(uid).child("latitude").getValue(String.class);
+                String longitude = dataSnapshot.child(uid).child("longitude").getValue(String.class);
 
                 itemlist.add(latitude);
                 itemlist.add(longitude);
-                //Log.d("YEEEEEET",itemlist.get(0));
 
+                updateMap();
             }
 
             @Override
@@ -95,18 +92,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    // Read from the database
+    //Method to update the map with users as markers
+    public void updateMap(){
+
+        LatLng newMarker = new LatLng(Double.parseDouble(returnTheLongitude()),((Double.parseDouble(returnTheLatitude()))));
+        mMap.addMarker(new MarkerOptions().position(newMarker).title("Archit Khanna"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+    }
+
     public String returnTheLongitude() {
 
-        //Log.d("YEEEEEET",itemlist.get(0));
-        String c1 = "1.35467383"; //itemlist.get(1)
+        String c1 = itemlist.get(1);
         //c1.toString();
         return c1;
     }
 
     public String returnTheLatitude() {
 
-        String c2 = "1.2546785"; //itemlist.get(0)
+        String c2 = itemlist.get(0);
         //c2.toString();
         return c2;
     }
@@ -114,18 +117,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap2 = googleMap;
 
-
-        // Add a marker in csis and move the camera
-        LatLng CSIS = new LatLng(Double.parseDouble(returnTheLongitude()),((Double.parseDouble(returnTheLatitude()))));
-        mMap.addMarker( new MarkerOptions().position( CSIS ).title( "Marker in CSIS" ) );
-        mMap.moveCamera( CameraUpdateFactory.newLatLng( CSIS ) );
-
-        LatLng Kemmy = new LatLng( 52.672567, -8.576747 );
-        mMap2.addMarker( new MarkerOptions().position( Kemmy ).title( "Marker in Kemmy" ) );
-        mMap2.moveCamera( CameraUpdateFactory.newLatLng( Kemmy ) );
-
+        LatLng Kemmy = new LatLng( 52.6771541, -8.5869449 );
+        mMap.addMarker( new MarkerOptions().position( Kemmy ).title( "University of Limerick" ) );
+        mMap.moveCamera( CameraUpdateFactory.newLatLng( Kemmy ) );
     }
 }
 
