@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     DatabaseReference databaseReference;
     FirebaseUser user;
-    List<String> itemlist;
+    List<String> itemList, nameList, latitudeList, longitudeList;
     String uid;
     ArrayAdapter<String>adapter;
 
@@ -67,19 +67,38 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ll=(ListView)findViewById( R.id.listView);
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-        itemlist = new ArrayList<>();
+        itemList = new ArrayList<>();
+        nameList = new ArrayList<>();
+        latitudeList = new ArrayList<>();
+        longitudeList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                itemlist.clear();
+                itemList.clear();
+                nameList.clear();
+                latitudeList.clear();
+                longitudeList.clear();
+
+                String name1, latitude1, longitude1;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+
+                    name1 = ds.child("name").getValue(String.class);
+                    latitude1 = ds.child("latitude").getValue(String.class);
+                    longitude1 = ds.child("longitude").getValue(String.class);
+                    nameList.add(name1);
+                    latitudeList.add(latitude1);
+                    longitudeList.add(longitude1);
+                }
+
                 String latitude = dataSnapshot.child(uid).child("latitude").getValue(String.class);
                 String longitude = dataSnapshot.child(uid).child("longitude").getValue(String.class);
 
-                itemlist.add(latitude);
-                itemlist.add(longitude);
+                itemList.add(latitude);
+                itemList.add(longitude);
 
                 updateMap();
             }
@@ -102,12 +121,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public String returnTheLongitude() {
 
-        return itemlist.get(1);
+        return itemList.get(1);
     }
 
     public String returnTheLatitude() {
 
-        return itemlist.get(0);
+        return itemList.get(0);
     }
 
     @Override
