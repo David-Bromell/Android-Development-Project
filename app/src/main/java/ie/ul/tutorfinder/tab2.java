@@ -18,10 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import Adapter.UserAdaptProfo;
 
 
@@ -62,26 +60,27 @@ public tab2() {
                 final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
                 reference.addValueEventListener(new ValueEventListener() {
+
+
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 User.clear();
-                                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                                        User user = snapshot.getValue(User.class);
-                                        assert user != null;
-                                        assert firebaseUser !=null;
-                                        if(user != null){
-                                                User.add(user);
 
-                                        }
+
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    User user = snapshot.getValue(User.class);
+                                    assert !user .equals("");
+                                    assert firebaseUser != null;
+                                    if (!user.equals("")) {
+                                        User.add(user);
+                                    }
 
                                 }
 
 
+
                         userAdapter = (UserAdapter) new UserAdaptProfo(getContext(), User);
                                 recyclerView.setAdapter((RecyclerView.Adapter) userAdapter);
-
-
-
 
 
                         }

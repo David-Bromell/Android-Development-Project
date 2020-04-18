@@ -29,9 +29,6 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class tab1 extends Fragment {
 
     private FirebaseUser fbuser;

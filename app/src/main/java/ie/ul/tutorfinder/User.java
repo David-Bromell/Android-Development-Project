@@ -57,7 +57,8 @@ public class User {
         Birthdate = birthdate;
     }
 
-    public String getLatitude() {
+
+  /* public String getLatitude() {
         return Latitude;
     }
 
@@ -70,6 +71,7 @@ public class User {
     }
 
     public void setLongitude(String longitude) {
-        Longitude = longitude;
-    }
+        Longitude = longitude;*/
 }
+
+

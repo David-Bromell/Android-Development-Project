@@ -38,8 +38,6 @@ public class MessageTabsActivity extends AppCompatActivity {
                     pagerAdapter.notifyDataSetChanged();
                 } else if (tab.getPosition() == 1) {
                     pagerAdapter.notifyDataSetChanged();
-                } else if (tab.getPosition() == 2) {
-                    pagerAdapter.notifyDataSetChanged();
                 }
             }
 
