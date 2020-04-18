@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     DatabaseReference databaseReference;
     FirebaseUser user;
-    List<String> itemList, nameList, latitudeList, longitudeList;
+    List<String> nameList, latitudeList, longitudeList;
     String uid;
     ArrayAdapter<String>adapter;
 
@@ -67,7 +67,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ll=(ListView)findViewById( R.id.listView);
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-        itemList = new ArrayList<>();
         nameList = new ArrayList<>();
         latitudeList = new ArrayList<>();
         longitudeList = new ArrayList<>();
@@ -77,28 +76,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                itemList.clear();
+
                 nameList.clear();
                 latitudeList.clear();
                 longitudeList.clear();
 
-                String name1, latitude1, longitude1;
+                String name, latitude, longitude;
 
                 for(DataSnapshot ds : dataSnapshot.getChildren()){
 
-                    name1 = ds.child("name").getValue(String.class);
-                    latitude1 = ds.child("latitude").getValue(String.class);
-                    longitude1 = ds.child("longitude").getValue(String.class);
-                    nameList.add(name1);
-                    latitudeList.add(latitude1);
-                    longitudeList.add(longitude1);
+                    name = ds.child("name").getValue(String.class);
+                    latitude = ds.child("latitude").getValue(String.class);
+                    longitude = ds.child("longitude").getValue(String.class);
+                    nameList.add(name);
+                    latitudeList.add(latitude);
+                    longitudeList.add(longitude);
                 }
-
-                String latitude = dataSnapshot.child(uid).child("latitude").getValue(String.class);
-                String longitude = dataSnapshot.child(uid).child("longitude").getValue(String.class);
-
-                itemList.add(latitude);
-                itemList.add(longitude);
 
                 updateMap();
             }
@@ -114,19 +107,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Method to update the map with users as markers
     public void updateMap(){
 
-        LatLng newMarker = new LatLng(Double.parseDouble(returnTheLongitude()),((Double.parseDouble(returnTheLatitude()))));
-        mMap.addMarker(new MarkerOptions().position(newMarker).title("Archit Khanna"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+        for(int i=0; i<nameList.size(); i++){
+
+            LatLng newMarker = new LatLng(Double.parseDouble(latitudeList.get(i)),Double.parseDouble(longitudeList.get(i)));
+            mMap.addMarker(new MarkerOptions().position(newMarker).title(nameList.get(i)));
+            if(i==(nameList.size()-1)){
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+            }
+        }
     }
 
     public String returnTheLongitude() {
 
-        return itemList.get(1);
+        return null; //itemList.get(1);
     }
 
     public String returnTheLatitude() {
 
-        return itemList.get(0);
+        return null; //itemList.get(0);
     }
 
     @Override
