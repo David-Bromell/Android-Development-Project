@@ -52,7 +52,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     DatabaseReference databaseReference;
     FirebaseUser user;
-    List<String> itemlist;
+    List<String> nameList, latitudeList, longitudeList;
     String uid;
     ArrayAdapter<String>adapter;
 
@@ -67,19 +67,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         ll=(ListView)findViewById( R.id.listView);
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
-        itemlist = new ArrayList<>();
+        nameList = new ArrayList<>();
+        latitudeList = new ArrayList<>();
+        longitudeList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                itemlist.clear();
-                String latitude = dataSnapshot.child(uid).child("latitude").getValue(String.class);
-                String longitude = dataSnapshot.child(uid).child("longitude").getValue(String.class);
 
-                itemlist.add(latitude);
-                itemlist.add(longitude);
+                nameList.clear();
+                latitudeList.clear();
+                longitudeList.clear();
+
+                String name, latitude, longitude;
+
+                for(DataSnapshot ds : dataSnapshot.getChildren()){
+
+                    name = ds.child("name").getValue(String.class);
+                    latitude = ds.child("latitude").getValue(String.class);
+                    longitude = ds.child("longitude").getValue(String.class);
+                    nameList.add(name);
+                    latitudeList.add(latitude);
+                    longitudeList.add(longitude);
+                }
 
                 updateMap();
             }
@@ -95,19 +107,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Method to update the map with users as markers
     public void updateMap(){
 
-        LatLng newMarker = new LatLng(Double.parseDouble(returnTheLongitude()),((Double.parseDouble(returnTheLatitude()))));
-        mMap.addMarker(new MarkerOptions().position(newMarker).title("Archit Khanna"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+        for(int i=0; i<nameList.size(); i++){
+
+            LatLng newMarker = new LatLng(Double.parseDouble(latitudeList.get(i)),Double.parseDouble(longitudeList.get(i)));
+            mMap.addMarker(new MarkerOptions().position(newMarker).title(nameList.get(i)));
+            if(i==(nameList.size()-1)){
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
+            }
+        }
     }
 
     public String returnTheLongitude() {
 
-        return itemlist.get(1);
+        return null; //itemList.get(1);
     }
 
     public String returnTheLatitude() {
 
-        return itemlist.get(0);
+        return null; //itemList.get(0);
     }
 
     @Override
