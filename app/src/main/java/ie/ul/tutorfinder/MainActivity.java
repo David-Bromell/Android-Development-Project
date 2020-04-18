@@ -20,6 +20,7 @@ package ie.ul.tutorfinder;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.AuthResult;
         import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(firebaseAuth.getCurrentUser() != null){
 
+
+
         }
     }
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Latitude = findViewById(R.id.etLatitude);
         userType = findViewById(R.id.spinnerUserType);
 
+        
 
 
         mDisplayDate = (EditText) findViewById(R.id.etBirthdate);
@@ -146,10 +150,14 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-    }
 
+    }
+    
+      
+        
 
 }
+
 
 
 
