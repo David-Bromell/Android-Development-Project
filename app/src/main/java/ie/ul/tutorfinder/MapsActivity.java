@@ -102,16 +102,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     public String returnTheLongitude() {
 
-        String c1 = itemlist.get(1);
-        //c1.toString();
-        return c1;
+        return itemlist.get(1);
     }
 
     public String returnTheLatitude() {
 
-        String c2 = itemlist.get(0);
-        //c2.toString();
-        return c2;
+        return itemlist.get(0);
     }
 
     @Override
