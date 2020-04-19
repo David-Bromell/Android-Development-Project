@@ -42,7 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         mauth = FirebaseAuth.getInstance();
         currentUserId = mauth.getCurrentUser().getUid();
-        userRef=FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId );
+        userRef=FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
         //Intent intent  = getIntent();
        // email = intent.getStringExtra( "email" );
 
@@ -58,10 +58,10 @@ public class ProfileActivity extends AppCompatActivity {
 
                 if(dataSnapshot.exists()) {
 
-                    String userName = dataSnapshot.child("name").getValue().toString();
-                    String email = dataSnapshot.child("email").getValue().toString();
-                    String birthdate = dataSnapshot.child("birthdate").getValue().toString();
-                    String phone = dataSnapshot.child("phone").getValue().toString();
+                    String userName = dataSnapshot.child("name").getValue(String.class);
+                    String email = dataSnapshot.child("email").getValue(String.class);
+                    String birthdate = dataSnapshot.child("birthdate").getValue(String.class);
+                    String phone = dataSnapshot.child("phone").getValue(String.class);
 
                 FirstNameTextiView.setText("Welcome to your profile, " + userName +"!");
                 EmailTextView.setText("EMAIL: " + email);
