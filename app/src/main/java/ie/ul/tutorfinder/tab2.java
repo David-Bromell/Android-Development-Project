@@ -69,11 +69,9 @@ public tab2() {
 
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                     User user = snapshot.getValue(User.class);
-                                    assert !user .equals("");
+                                    assert user != null;
                                     assert firebaseUser != null;
-                                    if (!user.equals("")) {
                                         User.add(user);
-                                    }
 
                                 }
 
