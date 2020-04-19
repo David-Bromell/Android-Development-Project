@@ -6,7 +6,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.method.TextKeyListener;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +20,8 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,15 +29,13 @@ import java.util.HashMap;
 import java.util.Objects;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class tab1 extends Fragment {
 
     private FirebaseUser fbuser;
     DatabaseReference ref;
     Intent intent;
     private EditText txtBox;
+    private RecyclerView messagesList;
 
 
 
@@ -63,23 +66,26 @@ public class tab1 extends Fragment {
             public void onClick(View v) {
                 String message = txtBox.getText().toString();
                 txtBox.setText("");
+                sendMessage("","", message);
             }
         });
     }
 
 
 
-        private void sendMessage(String sender, String recipient) {
+// this is what should push the message to the DB as a hashmap
+        private void sendMessage(String sender, String recipient, String message) {
+
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
 
             HashMap<String, Object> hasher = new HashMap<>();
-            hasher.put("Send", sender);
-            hasher.put("Receiver", recipient);
-            hasher.put("Message", sender);
+            hasher.put("Sent by", sender);
+            hasher.put("Received by", recipient);
+            hasher.put("Message", message);
 
 
             reference.child("Messages").push().setValue(hasher);
-        }
+}
 
 
 

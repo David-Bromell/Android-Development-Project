@@ -20,6 +20,7 @@ package ie.ul.tutorfinder;
         import com.google.android.gms.tasks.Task;
         import com.google.firebase.auth.AuthResult;
         import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.auth.FirebaseUser;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         if(firebaseAuth.getCurrentUser() != null){
 
+
+
         }
     }
 
@@ -65,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
         Latitude = findViewById(R.id.etLatitude);
         userType = findViewById(R.id.spinnerUserType);
 
+        
 
 
         mDisplayDate = (EditText) findViewById(R.id.etBirthdate);
@@ -110,14 +114,30 @@ public class MainActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
+                                    String Long, Lat;
+
+                                    if(Longitude.getText().toString().isEmpty()) {
+                                        Long = "-8.5869449";
+                                    }
+                                    else{
+                                        Long = Longitude.getText().toString();
+                                    }
+
+                                    if(Latitude.getText().toString().isEmpty()){
+                                        Lat = "52.6771541";
+                                    }
+                                    else{
+                                        Lat = Latitude.getText().toString();
+                                    }
+
                                     User user = new User(
                                             name.getText().toString(),
                                             email.getText().toString(),
                                             phone.getText().toString(),
                                             userType.getSelectedItem().toString(),
                                             birthdate.getText().toString(),
-                                            Longitude.getText().toString(),
-                                            Latitude.getText().toString()
+                                            Long,
+                                            Lat
                                              );
 
                                     FirebaseDatabase.getInstance()
@@ -146,10 +166,14 @@ public class MainActivity extends AppCompatActivity {
             }
         } );
 
-    }
 
+    }
+    
+      
+        
 
 }
+
 
 
 

@@ -21,34 +21,33 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class UserAdaptProfo extends RecyclerView.Adapter<UserAdaptProfo.ViewHolder> {
 
-    private Context mContext;
-    private List<User> mUser;
+    private Context context;
+    private List<User> User;
 
-    public UserAdaptProfo(Context mContext, List<User> mUser){
-        this.mContext = mContext;
-        this.mUser = mUser;
+    public UserAdaptProfo(Context context, List<User> User){
+        this.context = context;
+        this.User = User;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.user_item,parent,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.user_item,parent,false);
         return new UserAdaptProfo.ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        final User user = mUser.get(position);
+        final User user = User.get(position);
         holder.username.setText(user.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, MessageTabsActivity.class);
+                Intent intent = new Intent(context, MessageTabsActivity.class);
                 intent.putExtra("userName", user.getName());
-                mContext.startActivity(intent);
-
+                context.startActivity(intent);
             }
         });
 
@@ -57,7 +56,7 @@ public class UserAdaptProfo extends RecyclerView.Adapter<UserAdaptProfo.ViewHold
 
     @Override
     public int getItemCount() {
-        return mUser.size();
+        return User.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

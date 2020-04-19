@@ -32,7 +32,7 @@
         tools:layout_editor_absoluteY="115dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycleviwchat"
+        android:id="@+id/messages_list_users"
         android:layout_width="408dp"
         android:layout_height="549dp" />
 

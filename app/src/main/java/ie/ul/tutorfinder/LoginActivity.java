@@ -2,6 +2,7 @@ package ie.ul.tutorfinder;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -48,6 +50,10 @@ public class LoginActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     startActivity( new Intent( LoginActivity.this, MainUserScreen.class ) );
+                                    //FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+                                   // Intent profileIntent = new Intent (LoginActivity.this, ProfileActivity.class);
+                                   // profileIntent.putExtra("uid", currentUser.getUid());
+
                                 } else {
                                     Toast.makeText( LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                                 }
