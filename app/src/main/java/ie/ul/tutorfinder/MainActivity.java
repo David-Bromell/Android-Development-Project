@@ -24,7 +24,10 @@ package ie.ul.tutorfinder;
         import com.google.firebase.database.FirebaseDatabase;
         import com.google.firebase.firestore.FirebaseFirestore;
 
+        import java.text.SimpleDateFormat;
         import java.util.Calendar;
+        import java.util.Date;
+        import java.util.GregorianCalendar;
 
 public class MainActivity extends AppCompatActivity {
     Button login;
@@ -52,7 +55,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isPhoneValid(String phone){
-        return phone.length() == 8;
+        return phone.length() == 10;
+    }
+    public  boolean ageValidation (String dateString) throws Exception{
+        dateString = birthdate.toString();
+        boolean ageVerification = true;
+        Date date = new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 18);
+        return (calendar.getTime().after(date));
     }
 
     @Override
@@ -105,58 +116,66 @@ public class MainActivity extends AppCompatActivity {
         signup.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!isPhoneValid(phone.getText().toString())){
-                    Toast.makeText( MainActivity.this, "Invalid Phone number!", Toast.LENGTH_LONG ).show();
-                }
-                else{
 
-                    firebaseAuth.createUserWithEmailAndPassword( email.getText().toString(), password.getText().toString() )
-                            .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                                @Override
-                                public void onComplete(@NonNull Task<AuthResult> task) {
-                                    if (task.isSuccessful()) {
-                                        String Long, Lat;
 
-                                        if(Longitude.getText().toString().isEmpty()) {
-                                            Long = "-8.5869449";
+
+
+                    if(!isPhoneValid(phone.getText().toString())){
+                            Toast.makeText( MainActivity.this, "Invalid Phone number!", Toast.LENGTH_LONG ).show();
+                        }
+
+
+                    else{
+
+
+                        firebaseAuth.createUserWithEmailAndPassword( email.getText().toString(), password.getText().toString() )
+                                .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<AuthResult> task) {
+                                        if (task.isSuccessful()) {
+                                            String Long, Lat;
+
+                                            if(Longitude.getText().toString().isEmpty()) {
+                                                Long = "-8.5869449";
+                                            }
+                                            else{
+                                                Long = Longitude.getText().toString();
+                                            }
+
+                                            if(Latitude.getText().toString().isEmpty()){
+                                                Lat = "52.6771541";
+                                            }
+                                            else{
+                                                Lat = Latitude.getText().toString();
+                                            }
+
+                                            User user = new User(
+                                                    name.getText().toString(),
+                                                    email.getText().toString(),
+                                                    phone.getText().toString(),
+                                                    userType.getSelectedItem().toString(),
+                                                    birthdate.getText().toString(),
+                                                    Long,
+                                                    Lat
+                                            );
+
+                                            FirebaseDatabase.getInstance()
+                                                    .getReference("Users")
+                                                    .child(FirebaseAuth
+                                                            .getInstance()
+                                                            .getCurrentUser()
+                                                            .getUid()
+                                                    ).setValue(user);
+                                            // progressBar.setVisibility(View.GONE);
+                                            Toast.makeText( MainActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
+                                        } else {
+                                            Toast.makeText( MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                                         }
-                                        else{
-                                            Long = Longitude.getText().toString();
-                                        }
-
-                                        if(Latitude.getText().toString().isEmpty()){
-                                            Lat = "52.6771541";
-                                        }
-                                        else{
-                                            Lat = Latitude.getText().toString();
-                                        }
-
-                                        User user = new User(
-                                                name.getText().toString(),
-                                                email.getText().toString(),
-                                                phone.getText().toString(),
-                                                userType.getSelectedItem().toString(),
-                                                birthdate.getText().toString(),
-                                                Long,
-                                                Lat
-                                        );
-
-                                        FirebaseDatabase.getInstance()
-                                                .getReference("Users")
-                                                .child(FirebaseAuth
-                                                        .getInstance()
-                                                        .getCurrentUser()
-                                                        .getUid()
-                                                ).setValue(user);
-                                        // progressBar.setVisibility(View.GONE);
-                                        Toast.makeText( MainActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
-                                    } else {
-                                        Toast.makeText( MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                                     }
-                                }
-                            });
+                                });
 
-                }
+                    }
+
 
             }
         });
@@ -172,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    
+
       
         
 
