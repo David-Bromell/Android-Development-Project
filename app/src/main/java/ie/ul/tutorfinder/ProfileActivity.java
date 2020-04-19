@@ -26,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private DatabaseReference userRef;
     private FirebaseAuth mauth;
     private String currentUserId;
+    private Button paymentBtn;
 
    // private String email;
     //private static final String USERS =  "Users";
@@ -44,6 +45,15 @@ public class ProfileActivity extends AppCompatActivity {
         currentUserId = mauth.getCurrentUser().getUid();
 
         userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+
+        paymentBtn = findViewById(R.id.paymentBtn);
+        paymentBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openPaymentActivity();
+            }
+
+        });
 
 
 
@@ -94,8 +104,10 @@ public class ProfileActivity extends AppCompatActivity {
         });
     }
 
-
-
+    private void openPaymentActivity() {
+        Intent intent = new Intent(this,Payment.class);
+        startActivity(intent);
+    }
 
 
 }
