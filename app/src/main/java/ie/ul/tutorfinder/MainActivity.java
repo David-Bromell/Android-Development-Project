@@ -48,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(firebaseAuth.getCurrentUser() != null){
 
-
-
         }
+    }
+
+    public boolean isPhoneValid(String phone){
+        return phone.length() == 8;
     }
 
     @Override
@@ -67,10 +69,6 @@ public class MainActivity extends AppCompatActivity {
         Longitude = findViewById(R.id.etLongitude);
         Latitude = findViewById(R.id.etLatitude);
         userType = findViewById(R.id.spinnerUserType);
-
-        
-
-
         mDisplayDate = (EditText) findViewById(R.id.etBirthdate);
 
         mDisplayDate.setOnClickListener(new View.OnClickListener() {
@@ -103,57 +101,63 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
         firebaseAuth = FirebaseAuth.getInstance();
         signup.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  progressBar.setVisibility(View.VISIBLE);
-                firebaseAuth.createUserWithEmailAndPassword( email.getText().toString(), password.getText().toString() )
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    String Long, Lat;
+                if(!isPhoneValid(phone.getText().toString())){
+                    Toast.makeText( MainActivity.this, "Invalid Phone number!", Toast.LENGTH_LONG ).show();
+                }
+                else{
 
-                                    if(Longitude.getText().toString().isEmpty()) {
-                                        Long = "-8.5869449";
-                                    }
-                                    else{
-                                        Long = Longitude.getText().toString();
-                                    }
+                    firebaseAuth.createUserWithEmailAndPassword( email.getText().toString(), password.getText().toString() )
+                            .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        String Long, Lat;
 
-                                    if(Latitude.getText().toString().isEmpty()){
-                                        Lat = "52.6771541";
-                                    }
-                                    else{
-                                        Lat = Latitude.getText().toString();
-                                    }
+                                        if(Longitude.getText().toString().isEmpty()) {
+                                            Long = "-8.5869449";
+                                        }
+                                        else{
+                                            Long = Longitude.getText().toString();
+                                        }
 
-                                    User user = new User(
-                                            name.getText().toString(),
-                                            email.getText().toString(),
-                                            phone.getText().toString(),
-                                            userType.getSelectedItem().toString(),
-                                            birthdate.getText().toString(),
-                                            Long,
-                                            Lat
-                                             );
+                                        if(Latitude.getText().toString().isEmpty()){
+                                            Lat = "52.6771541";
+                                        }
+                                        else{
+                                            Lat = Latitude.getText().toString();
+                                        }
 
-                                    FirebaseDatabase.getInstance()
-                                                    .getReference("Users")
-                                                    .child(FirebaseAuth
-                                                            .getInstance()
-                                                            .getCurrentUser()
-                                                            .getUid()
-                                                    ).setValue(user);
-                                   // progressBar.setVisibility(View.GONE);
-                                    Toast.makeText( MainActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
-                                } else {
-                                    Toast.makeText( MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
+                                        User user = new User(
+                                                name.getText().toString(),
+                                                email.getText().toString(),
+                                                phone.getText().toString(),
+                                                userType.getSelectedItem().toString(),
+                                                birthdate.getText().toString(),
+                                                Long,
+                                                Lat
+                                        );
+
+                                        FirebaseDatabase.getInstance()
+                                                .getReference("Users")
+                                                .child(FirebaseAuth
+                                                        .getInstance()
+                                                        .getCurrentUser()
+                                                        .getUid()
+                                                ).setValue(user);
+                                        // progressBar.setVisibility(View.GONE);
+                                        Toast.makeText( MainActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
+                                    } else {
+                                        Toast.makeText( MainActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
+                                    }
                                 }
-                            }
-                        });
+                            });
+
+                }
+
             }
         });
 
