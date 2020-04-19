@@ -107,9 +107,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     //Method to update the map with users as markers
     public void updateMap(){
 
+        LatLng newMarker;
+
         for(int i=0; i<nameList.size(); i++){
 
-            LatLng newMarker = new LatLng(Double.parseDouble(latitudeList.get(i)),Double.parseDouble(longitudeList.get(i)));
+            newMarker = new LatLng(Double.parseDouble(latitudeList.get(i)),Double.parseDouble(longitudeList.get(i)));
             mMap.addMarker(new MarkerOptions().position(newMarker).title(nameList.get(i)));
             if(i==(nameList.size()-1)){
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
