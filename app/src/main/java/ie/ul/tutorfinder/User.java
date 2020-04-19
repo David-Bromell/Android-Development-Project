@@ -6,7 +6,6 @@ public class User {
     public User() {
 
     }
-
     public User(String name, String email, String phone, String userType, String birthdate, String longitude, String Latitude) {
         this.Name = name;
         this.email = email;
