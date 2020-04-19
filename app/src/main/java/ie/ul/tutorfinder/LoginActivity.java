@@ -49,11 +49,10 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    startActivity( new Intent( LoginActivity.this, MainUserScreen.class ) );
-                                    //FirebaseUser currentUser = firebaseAuth.getCurrentUser();
-                                   // Intent profileIntent = new Intent (LoginActivity.this, ProfileActivity.class);
-                                   // profileIntent.putExtra("uid", currentUser.getUid());
-
+                                    Intent mainIntent = new Intent( LoginActivity.this, MainUserScreen.class );
+                                    mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    startActivity(mainIntent);
+                                    finish();
                                 } else {
                                     Toast.makeText( LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                                 }
