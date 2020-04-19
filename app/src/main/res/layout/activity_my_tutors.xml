@@ -6,4 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".MyTutorsActivity">
 
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="105dp"
+        android:layout_marginTop="148dp"
+        android:layout_marginEnd="106dp"
+        android:layout_marginBottom="436dp"
+        android:text="You do not have any Tutors yet!"
+        android:textFontWeight="10"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

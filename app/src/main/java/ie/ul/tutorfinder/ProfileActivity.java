@@ -5,12 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.firebase.ui.auth.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,19 +25,41 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mauth;
     private String currentUserId;
     private Button paymentBtn;
+    private Button logOut;
+    private Button myTutors;
+    private Button myLessons;
 
-   // private String email;
-    //private static final String USERS =  "Users";
+    public void openMyTutorsActivity() {
+        Intent intentTutors = new Intent(this, MyTutorsActivity.class);
+        startActivity(intentTutors);
+    }
 
-    Button logOut;
-
+    public void openMyLessonsActivity() {
+        Intent intentLessons = new Intent(this, MyLessonsActivity.class);
+        startActivity(intentLessons);
+    }
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         logOut = findViewById(R.id.LogoutBtn);
+        myTutors = findViewById(R.id.myTutotrsbtn);
+        myLessons = findViewById(R.id.myLessonsbtn);
+
+        myLessons.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyLessonsActivity();
+            }
+        });
+
+        myTutors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyTutorsActivity();
+            }
+        });
 
         mauth = FirebaseAuth.getInstance();
         currentUserId = mauth.getCurrentUser().getUid();
@@ -55,16 +75,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         });
 
-
-
-        //Intent intent  = getIntent();
-        // email = intent.getStringExtra( "email" );
-
         FirstNameTextiView = findViewById(R.id.first_Name_TextView);
         EmailTextView = findViewById(R.id.email_TextView);
         PhoneTextView = findViewById(R.id.phone_TextView);
         BirthDateTextView = findViewById(R.id.birthDate_TextView);
-
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -81,10 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
                     EmailTextView.setText("EMAIL: " + email);
                     PhoneTextView.setText("CONTACT NUM: " + phone);
                     BirthDateTextView.setText("DOB: " + birthdate);
-
-
                 }
-
             }
 
             @Override
@@ -94,7 +105,6 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         logOut.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {
@@ -108,6 +118,4 @@ public class ProfileActivity extends AppCompatActivity {
         Intent intent = new Intent(this,Payment.class);
         startActivity(intent);
     }
-
-
 }
