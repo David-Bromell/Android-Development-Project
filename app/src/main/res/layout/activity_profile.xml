@@ -84,8 +84,8 @@
 
     <ImageView
         android:id="@+id/profileImageView"
-        android:layout_width="179dp"
-        android:layout_height="118dp"
+        android:layout_width="222dp"
+        android:layout_height="142dp"
         android:onClick="handleImageClick"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
