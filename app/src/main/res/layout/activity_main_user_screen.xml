@@ -7,6 +7,16 @@
     tools:context=".MainUserScreen">
 
     <Button
+        android:id="@+id/findTutorsBtn"
+        android:layout_width="350dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="19dp"
+        android:text="@string/find_tutor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FindTutorsBtn" />
+
+    <Button
         android:id="@+id/MyLessonsBtn"
         android:layout_width="350dp"
         android:layout_height="53dp"
@@ -78,7 +88,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintVertical_bias="0.632" />
 
     <Button
         android:id="@+id/MyMessagesBtn"
