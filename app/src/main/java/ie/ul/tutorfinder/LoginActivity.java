@@ -39,6 +39,14 @@ public class LoginActivity extends AppCompatActivity {
         userLogin = findViewById( R.id.btnUserLogin );
         firebaseAuth = FirebaseAuth.getInstance();
 
+        Button btnToSignup = findViewById(R.id.btnToSignup);
+        btnToSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openStartActivity();
+            }
+        });
+
         userLogin.setOnClickListener( new View.OnClickListener() {
 
             @Override
@@ -49,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Intent mainIntent = new Intent( LoginActivity.this, MainUserScreen.class );
+                                    Intent mainIntent = new Intent( LoginActivity.this, MainActivity.class );
                                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(mainIntent);
                                     finish();
@@ -62,6 +70,11 @@ public class LoginActivity extends AppCompatActivity {
             }
 
         } );
+    }
+
+    private void openStartActivity() {
+        Intent intentSignup = new Intent(this, StartActivity.class);
+        startActivity(intentSignup);
     }
 }
 

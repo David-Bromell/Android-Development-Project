@@ -1,22 +1,40 @@
+
 package ie.ul.tutorfinder;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
-import android.view.MenuItem;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.firebase.ui.auth.data.model.User;
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.core.Tag;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
+import java.io.ByteArrayOutputStream;
+import java.net.URI;
 
 
 public class ProfileActivity extends AppCompatActivity {
@@ -27,87 +45,189 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mauth;
     private String currentUserId;
     private Button paymentBtn;
+    private Button logOut;
+    private Button myTutors;
+    private Button myLessons;
+    ImageView profileImage;
+    String DISPLAY_NAME = null;
+    String PROFILE_IMG_URL = null;
+    int TAKE_IMAGE_CODE = 10001;
+    public static final String TAG = "TAG";
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
-   // private String email;
-    //private static final String USERS =  "Users";
 
-    Button logOut;
 
+    public void openMyTutorsActivity() {
+        Intent intentTutors = new Intent( this, MyTutorsActivity.class );
+        startActivity( intentTutors );
+    }
+
+    public void openMyLessonsActivity() {
+        Intent intentLessons = new Intent( this, MyLessonsActivity.class );
+        startActivity( intentLessons );
+    }
 
     @Override
-
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
-        logOut = findViewById(R.id.LogoutBtn);
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_profile );
+        logOut = findViewById( R.id.LogoutBtn );
+        myTutors = findViewById( R.id.myTutotrsbtn );
+        myLessons = findViewById( R.id.myLessonsbtn );
+
+
+
+
+        myLessons.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyLessonsActivity();
+            }
+        } );
+
+        myTutors.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyTutorsActivity();
+            }
+        } );
 
         mauth = FirebaseAuth.getInstance();
         currentUserId = mauth.getCurrentUser().getUid();
 
-        userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        userRef = FirebaseDatabase.getInstance().getReference().child( "Users" ).child( currentUserId );
 
-        paymentBtn = findViewById(R.id.paymentBtn);
-        paymentBtn.setOnClickListener(new View.OnClickListener() {
+        paymentBtn = findViewById( R.id.paymentBtn );
+        paymentBtn.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPaymentActivity();
             }
 
-        });
+        } );
+
+        FirstNameTextiView = findViewById( R.id.first_Name_TextView );
+        EmailTextView = findViewById( R.id.email_TextView );
+        PhoneTextView = findViewById( R.id.phone_TextView );
+        BirthDateTextView = findViewById( R.id.birthDate_TextView );
+        profileImage = findViewById( R.id.profileImageView );
+
+        if(user!=null){
+            Glide.with( this ).load(user.getPhotoUrl()).into(profileImage);
+
+        }
 
 
-
-        //Intent intent  = getIntent();
-        // email = intent.getStringExtra( "email" );
-
-        FirstNameTextiView = findViewById(R.id.first_Name_TextView);
-        EmailTextView = findViewById(R.id.email_TextView);
-        PhoneTextView = findViewById(R.id.phone_TextView);
-        BirthDateTextView = findViewById(R.id.birthDate_TextView);
-
-
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists()) {
 
-                    String userName = dataSnapshot.child("name").getValue(String.class);
-                    String email = dataSnapshot.child("email").getValue(String.class);
-                    String birthdate = dataSnapshot.child("birthdate").getValue(String.class);
-                    String phone = dataSnapshot.child("phone").getValue(String.class);
+                    String userName = dataSnapshot.child( "name" ).getValue( String.class );
+                    String email = dataSnapshot.child( "email" ).getValue( String.class );
+                    String birthdate = dataSnapshot.child( "birthdate" ).getValue( String.class );
+                    String phone = dataSnapshot.child( "phone" ).getValue( String.class );
 
-                    FirstNameTextiView.setText("Welcome to your profile, " + userName + "!");
-                    EmailTextView.setText("EMAIL: " + email);
-                    PhoneTextView.setText("CONTACT NUM: " + phone);
-                    BirthDateTextView.setText("DOB: " + birthdate);
+                    FirstNameTextiView.setText( "Welcome to your profile, " + userName + "!" );
+                    EmailTextView.setText( "EMAIL: " + email );
+                    PhoneTextView.setText( "CONTACT NUM: " + phone );
+                    BirthDateTextView.setText( "DOB: " + birthdate );
 
 
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        } );
 
-        logOut.setOnClickListener(new View.OnClickListener() {
-
+        logOut.setOnClickListener( new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity( new Intent(ProfileActivity.this, MainActivity.class));
+                startActivity( new Intent( ProfileActivity.this, MainActivity.class ) );
             }
-        });
+        } );
     }
 
     private void openPaymentActivity() {
-        Intent intent = new Intent(this,Payment.class);
-        startActivity(intent);
+        Intent intent = new Intent( this, Payment.class );
+        startActivity( intent );
     }
 
+    public void handleImageClick(View view) {
 
-}
+        Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
+        if (intent.resolveActivity( getPackageManager() ) != null) {
+            startActivityForResult( intent, TAKE_IMAGE_CODE );
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult( requestCode, resultCode, data );
+
+        if (requestCode == TAKE_IMAGE_CODE) {
+            switch (resultCode) {
+                case RESULT_OK:
+                    Bitmap bitnmap = (Bitmap) data.getExtras().get( "data" );
+                    profileImage.setImageBitmap( bitnmap );
+                    handleUpload( bitnmap );
+            }
+        }
+    }
+
+    private void handleUpload(Bitmap bitnmap) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitnmap.compress( Bitmap.CompressFormat.JPEG, 100, baos );
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        final StorageReference reference = FirebaseStorage.getInstance().getReference().child( "profileImages" ).child( uid + ".jpeg" );
+
+        reference.putBytes( baos.toByteArray() )
+                .addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    getDownloadUrl( reference );
+                    }
+                } )
+                .addOnFailureListener( new OnFailureListener() {
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e( TAG, "onFailure: ", e.getCause() );
+                    }
+                } );
+    }
+        private void getDownloadUrl (StorageReference reference){
+        reference.getDownloadUrl().addOnSuccessListener( new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+            Log.d( TAG, "OnSuccess:"+ uri );
+            setUserProfileUrl( uri );
+            }
+        } );
+        }
+        private void setUserProfileUrl(Uri uri){
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+            UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setPhotoUri(uri).build();
+            user.updateProfile( request ).addOnSuccessListener( new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText( ProfileActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
+
+                }
+            } )
+                    .addOnFailureListener( new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText( ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show();
+                        }
+                    } );
+        }
+    }

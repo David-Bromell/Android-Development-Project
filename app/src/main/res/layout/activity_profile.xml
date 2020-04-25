@@ -7,7 +7,7 @@
     tools:context=".ProfileActivity">
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/myTutotrsbtn"
         android:layout_width="141dp"
         android:layout_height="53dp"
         android:layout_marginEnd="11dp"
@@ -20,7 +20,7 @@
         app:layout_constraintVertical_bias="0.656" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/myLessonsbtn"
         android:layout_width="138dp"
         android:layout_height="49dp"
         android:layout_marginStart="11dp"
@@ -83,17 +83,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="138dp"
-        android:layout_height="94dp"
+        android:id="@+id/profileImageView"
+        android:layout_width="222dp"
+        android:layout_height="142dp"
+        android:onClick="handleImageClick"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.1"
-        app:srcCompat="@android:mipmap/sym_def_app_icon"
-        android:textSize="20sp" />
+        app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="409dp"
