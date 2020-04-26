@@ -1,7 +1,7 @@
 package ie.ul.tutorfinder;
 
 public class User {
-    private String Name, email, phone, userType, Birthdate, Longitude, Latitude = null;
+    protected String Name, email, phone, userType, Birthdate, Longitude, Latitude = null;
 
     public User() {
 

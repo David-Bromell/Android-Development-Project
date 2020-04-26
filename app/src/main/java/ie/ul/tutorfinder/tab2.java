@@ -18,6 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.List;
 import Adapter.UserAdaptProfo;
@@ -32,6 +34,10 @@ public class tab2<UserAdapter> extends Fragment {
         private RecyclerView recyclerView;
         private UserAdapter userAdapter;
         private List<User> User;
+        FirebaseAuth firebaseAuth;
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
 
 public tab2() {
         // Required empty public constructor
@@ -68,12 +74,19 @@ public tab2() {
 
 
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    User user = snapshot.getValue(User.class);
-                                    assert user != null;
-                                    assert firebaseUser != null;
-                                        User.add(user);
+                                        User user = snapshot.getValue(User.class);
+                                        assert user != null;
+                                        assert firebaseUser != null;
+                                        if (user.getUserType().equals("Student")) {
+                                                User.add(user);
+                                        } else if (user.getUserType().equals("Tutor"))
+                                                User.add(user);
+                                        {
 
+
+                                        }
                                 }
+
 
 
 
