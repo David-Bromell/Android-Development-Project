@@ -35,7 +35,7 @@ public class StartActivity extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private static final String TAG = "MainActivity";
+    private static final String TAG = "StartActivity";
     private EditText mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
 
@@ -62,7 +62,7 @@ public class StartActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
+        setContentView( R.layout.activity_start );
 
         email = findViewById( R.id.etEmail );
         password = findViewById( R.id.etPassword );
