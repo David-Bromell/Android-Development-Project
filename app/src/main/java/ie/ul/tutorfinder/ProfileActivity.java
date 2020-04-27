@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void openMyLessonsActivity() {
-        Intent intentLessons = new Intent( this, MyLessonsActivity.class );
+        Intent intentLessons = new Intent( this, EventActivity.class );
         startActivity( intentLessons );
     }
 
