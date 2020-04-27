@@ -3,6 +3,7 @@ package ie.ul.tutorfinder;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -40,6 +41,13 @@ public class ProfileActivity extends AppCompatActivity {
     int TAKE_IMAGE_CODE = 10001;
     public static final String TAG = "TAG";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private Toolbar mToolbar;
+
+    private void addActionBar(){
+        mToolbar = findViewById(R.id.main_page_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Tutor Finder - Home");
+    }
 
     public void openMyTutorsActivity() {
         Intent intentTutors = new Intent( this, MyTutorsActivity.class );
@@ -54,6 +62,8 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
+
+        addActionBar();
 
         setContentView( R.layout.activity_profile );
         Button logOut = findViewById(R.id.LogoutBtn);

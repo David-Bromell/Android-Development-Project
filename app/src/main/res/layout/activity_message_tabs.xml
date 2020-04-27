@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <include layout="@layout/app_bar_layout" android:id="@+id/main_page_toolbar"/>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/TabLayout"

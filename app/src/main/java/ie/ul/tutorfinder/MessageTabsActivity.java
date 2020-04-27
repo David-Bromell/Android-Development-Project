@@ -3,6 +3,7 @@ package ie.ul.tutorfinder;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
+import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
@@ -13,11 +14,20 @@ public class MessageTabsActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private TabItem tab1,tab2, tab3;
     public PagerAdapter pagerAdapter;
+    private Toolbar mToolbar;
+
+    private void addActionBar(){
+        mToolbar = findViewById(R.id.main_page_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Tutor Finder - Home");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_tabs);
+
+        addActionBar();
 
         TabLayout tabLayout = findViewById(R.id.TabLayout);
         tab1 = findViewById(R.id.Tab1);

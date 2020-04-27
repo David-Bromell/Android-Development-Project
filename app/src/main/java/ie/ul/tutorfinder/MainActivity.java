@@ -40,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    private void addActionBar(){
+        mToolbar = findViewById(R.id.main_page_toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle("Tutor Finder - Home");
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-        mToolbar = findViewById(R.id.main_page_toolbar);
-        setSupportActionBar(mToolbar);
+        addActionBar();
 
         Button myMessagesBtn = findViewById(R.id.MyMessagesBtn);
         myMessagesBtn.setOnClickListener(new View.OnClickListener() {

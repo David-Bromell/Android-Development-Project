@@ -6,6 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
+    <include layout="@layout/app_bar_layout" android:id="@+id/main_page_toolbar"/>
+
     <Button
         android:id="@+id/myTutotrsbtn"
         android:layout_width="141dp"
