@@ -3,9 +3,11 @@ package ie.ul.tutorfinder;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -22,6 +24,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreateOptionsMenu(menu);
 
         getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.main_logout_button){
+            FirebaseAuth.getInstance().signOut();
+            loginRedirect();
+        }
 
         return true;
     }
@@ -115,10 +129,14 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
         if(currentUser == null){
-            Intent startIntent = new Intent(MainActivity.this, LoginActivity.class);
-            startActivity(startIntent);
-            finish();
+            loginRedirect();
         }
+    }
+
+    private void loginRedirect(){
+        Intent startIntent = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(startIntent);
+        finish();
     }
 }
 
