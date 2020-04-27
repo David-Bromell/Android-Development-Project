@@ -18,7 +18,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,44 +33,34 @@ public class tab2<UserAdapter> extends Fragment {
         private RecyclerView recyclerView;
         private UserAdapter userAdapter;
         private List<User> User;
-        FirebaseAuth firebaseAuth;
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-
-
-public tab2() {
+        public tab2() {
         // Required empty public constructor
         }
 
-@Override
+        @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+                // Inflate the layout for this fragment
+                View view =inflater.inflate(R.layout.fragment_tab2, container,false);
+                recyclerView=view.findViewById(R.id.recyclerView);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        View view =inflater.inflate(R.layout.fragment_tab2, container,false);
-        recyclerView=view.findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        User= new ArrayList<>();
-        readUser();
-        return view;
-
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_tab2, container, false);
+                User= new ArrayList<>();
+                readUser();
+                //return inflater.inflate(R.layout.fragment_tab2, container, false);
+                return view;
         }
-
-
 
         private void readUser(){
                 final FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
                 reference.addValueEventListener(new ValueEventListener() {
 
-
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 User.clear();
-
 
                                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                                         User user = snapshot.getValue(User.class);
@@ -79,21 +68,14 @@ public tab2() {
                                         assert firebaseUser != null;
                                         if (user.getUserType().equals("Student")) {
                                                 User.add(user);
-                                        } else if (user.getUserType().equals("Tutor"))
+                                        }
+                                        else if (user.getUserType().equals("Tutor")) {
                                                 User.add(user);
-                                        {
-
-
                                         }
                                 }
 
-
-
-
-                        userAdapter = (UserAdapter) new UserAdaptProfo(getContext(), User);
+                                userAdapter = (UserAdapter) new UserAdaptProfo(getContext(), User);
                                 recyclerView.setAdapter((RecyclerView.Adapter) userAdapter);
-
-
                         }
 
                         @Override

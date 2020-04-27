@@ -1,12 +1,14 @@
 package ie.ul.tutorfinder;
 
 public class User {
-    protected String Name, email, phone, userType, Birthdate, Longitude, Latitude = null;
+
+    private String Name, email, phone, userType, Birthdate, Longitude, Latitude = null;
 
     public User() {
-
+        //Default Constructor
     }
-    public User(String name, String email, String phone, String userType, String birthdate, String longitude, String Latitude) {
+
+    User(String name, String email, String phone, String userType, String birthdate, String longitude, String Latitude) {
         this.Name = name;
         this.email = email;
         this.phone = phone;
@@ -40,7 +42,7 @@ public class User {
         this.phone = phone;
     }
 
-    public String getUserType() {
+    String getUserType() {
         return userType;
     }
 
@@ -55,7 +57,6 @@ public class User {
     public void setBirthdate(String birthdate) {
         Birthdate = birthdate;
     }
-
 
     public String getLatitude() {
         return Latitude;

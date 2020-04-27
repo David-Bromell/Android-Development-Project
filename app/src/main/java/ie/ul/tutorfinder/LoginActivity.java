@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,13 +20,12 @@ public class LoginActivity extends AppCompatActivity {
     EditText userPass;
     EditText userEmail;
     Button userLogin;
-
     FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate( savedInstanceState );
+
         setContentView( R.layout.activity_login );
 
         userEmail = findViewById( R.id.etUserEmail );
@@ -48,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 firebaseAuth.signInWithEmailAndPassword( userEmail.getText().toString(),
-                        userPass.getText().toString() )
+                        userPass.getText().toString())
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -57,14 +55,13 @@ public class LoginActivity extends AppCompatActivity {
                                     mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     startActivity(mainIntent);
                                     finish();
-                                } else {
+                                }
+                                else {
                                     Toast.makeText( LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
                                 }
-
                             }
                         } );
             }
-
         } );
     }
 

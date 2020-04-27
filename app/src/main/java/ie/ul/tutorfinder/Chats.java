@@ -6,11 +6,9 @@ public class Chats {
     private String recipient;
     private String message;
 
-
     public Chats() {
-
+        //Mandatory Default Constructor
     }
-
 
     public Chats(String sender, String recipient, String message) {
         this.sender = sender;

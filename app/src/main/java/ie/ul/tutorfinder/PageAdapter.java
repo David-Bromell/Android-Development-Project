@@ -6,15 +6,15 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
 public class PageAdapter extends FragmentPagerAdapter {
-private int noTabs;
 
-    public PageAdapter(FragmentManager fm, int noTabs) {
+    private int noTabs;
 
+    PageAdapter(FragmentManager fm, int noTabs) {
         super(fm);
         this.noTabs = noTabs;
     }
 
-
+    @NonNull
     @Override
     public Fragment getItem(int position) {
         switch (position) {
