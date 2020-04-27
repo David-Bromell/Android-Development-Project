@@ -9,17 +9,17 @@
     <include layout="@layout/app_bar_layout" android:id="@+id/main_page_toolbar"/>
 
     <Button
-        android:id="@+id/myTutotrsbtn"
-        android:layout_width="141dp"
-        android:layout_height="53dp"
-        android:layout_marginEnd="11dp"
-        android:text="@string/my_tutors"
+        android:id="@+id/paymentBtn"
+        android:layout_width="114dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="19dp"
+        android:text="Payment"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.061"
+        app:layout_constraintHorizontal_bias="0.949"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.656" />
+        app:layout_constraintVertical_bias="0.729" />
 
     <Button
         android:id="@+id/myLessonsbtn"
@@ -33,20 +33,20 @@
         app:layout_constraintHorizontal_bias="0.03"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.813" />
+        app:layout_constraintVertical_bias="0.903" />
 
     <Button
-        android:id="@+id/paymentBtn"
-        android:layout_width="114dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="19dp"
-        android:text="Payment"
+        android:id="@+id/myTutotrsbtn"
+        android:layout_width="141dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="11dp"
+        android:text="@string/my_tutors"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.946"
+        app:layout_constraintHorizontal_bias="0.061"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.639" />
+        app:layout_constraintVertical_bias="0.744" />
 
     <Button
         android:id="@+id/button5"
@@ -60,7 +60,7 @@
         app:layout_constraintHorizontal_bias="0.947"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.774" />
+        app:layout_constraintVertical_bias="0.864" />
 
     <Button
         android:id="@+id/LogoutBtn"
@@ -77,8 +77,8 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="72dp"
+        android:layout_marginTop="56dp"
+        android:layout_marginEnd="60dp"
         android:text="Tutor Finder: Helping you learn!!"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,10 +92,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintVertical_bias="0.176"
         app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,7 +104,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.372">
+        app:layout_constraintVertical_bias="0.528">
 
         <TextView
             android:id="@+id/first_Name_TextView"

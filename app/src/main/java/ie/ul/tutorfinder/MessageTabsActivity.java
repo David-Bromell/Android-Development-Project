@@ -1,14 +1,19 @@
 package ie.ul.tutorfinder;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MessageTabsActivity extends AppCompatActivity {
     private ViewPager viewPager;
@@ -19,7 +24,34 @@ public class MessageTabsActivity extends AppCompatActivity {
     private void addActionBar(){
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Tutor Finder - Home");
+        //getSupportActionBar().setTitle("Tutor Finder - Home");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.main_logout_button){
+            FirebaseAuth.getInstance().signOut();
+            loginRedirect();
+        }
+
+        return true;
+    }
+
+    private void loginRedirect(){
+        Intent startIntent = new Intent(MessageTabsActivity.this, LoginActivity.class);
+        startActivity(startIntent);
+        finish();
     }
 
     @Override

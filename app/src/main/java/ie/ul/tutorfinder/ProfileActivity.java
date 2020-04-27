@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -46,7 +48,34 @@ public class ProfileActivity extends AppCompatActivity {
     private void addActionBar(){
         mToolbar = findViewById(R.id.main_page_toolbar);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("Tutor Finder - Home");
+        //getSupportActionBar().setTitle("Tutor Finder - Home");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId() == R.id.main_logout_button){
+            FirebaseAuth.getInstance().signOut();
+            loginRedirect();
+        }
+
+        return true;
+    }
+
+    private void loginRedirect(){
+        Intent startIntent = new Intent(ProfileActivity.this, LoginActivity.class);
+        startActivity(startIntent);
+        finish();
     }
 
     public void openMyTutorsActivity() {
