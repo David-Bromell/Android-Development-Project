@@ -38,7 +38,7 @@
         <activity android:name=".MyLessonsActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".LoginActivity" />
-        <activity android:name=".MainUserScreen" />
+        <activity android:name=".StartActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

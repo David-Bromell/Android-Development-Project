@@ -10,7 +10,6 @@ import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 public class MessageTabsActivity extends AppCompatActivity {
-    private TabLayout tabLayout;
     private ViewPager viewPager;
     private TabItem tab1,tab2, tab3;
     public PagerAdapter pagerAdapter;
@@ -20,10 +19,9 @@ public class MessageTabsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_tabs);
 
-        tabLayout = (TabLayout) findViewById(R.id.TabLayout);
-        tab1 = (TabItem) findViewById(R.id.Tab1);
-        tab2 =(TabItem) findViewById(R.id.Tab2);
-        //tab3 = (TabItem) findViewById(R.id.Tab3);
+        TabLayout tabLayout = findViewById(R.id.TabLayout);
+        tab1 = findViewById(R.id.Tab1);
+        tab2 = findViewById(R.id.Tab2);
         viewPager = findViewById(R.id.viewpager);
 
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
@@ -53,8 +51,5 @@ public class MessageTabsActivity extends AppCompatActivity {
         });
 
     viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
     }
-
-
 }

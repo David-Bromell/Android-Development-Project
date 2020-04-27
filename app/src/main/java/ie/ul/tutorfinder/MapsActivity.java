@@ -1,14 +1,10 @@
 package ie.ul.tutorfinder;
 
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -17,7 +13,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,15 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.FirebaseFirestoreException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -63,8 +51,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById( R.id.map );
+
         mapFragment.getMapAsync( this );
-        ll=(ListView)findViewById( R.id.listView);
+
+        ll= findViewById( R.id.listView);
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         nameList = new ArrayList<>();
@@ -98,10 +88,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
     }
 
     //Method to update the map with users as markers
@@ -119,23 +107,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
     }
 
-    public String returnTheLongitude() {
-
-        return null; //itemList.get(1);
-    }
-
-    public String returnTheLatitude() {
-
-        return null; //itemList.get(0);
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        LatLng Kemmy = new LatLng( 52.6771541, -8.5869449 );
-        mMap.addMarker( new MarkerOptions().position( Kemmy ).title( "University of Limerick" ) );
-        mMap.moveCamera( CameraUpdateFactory.newLatLng( Kemmy ) );
+        LatLng univLimerick = new LatLng( 52.6771541, -8.5869449 );
+        mMap.addMarker( new MarkerOptions().position( univLimerick ).title( "University of Limerick" ) );
+        mMap.moveCamera( CameraUpdateFactory.newLatLng( univLimerick ) );
     }
 }
 

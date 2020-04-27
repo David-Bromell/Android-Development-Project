@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.EventLog;
 import android.widget.Toast;
 
 import com.squareup.timessquare.CalendarPickerView;
@@ -36,7 +35,6 @@ public class EventActivity extends AppCompatActivity {
             @Override
             public void onDateUnselected(Date date) {
 
-
                 Calendar cal = Calendar.getInstance();
 
                 Intent intent = new Intent(Intent.ACTION_EDIT);
@@ -48,9 +46,7 @@ public class EventActivity extends AppCompatActivity {
                 intent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
                 intent.putExtra("title", "A Test Event from android app");
                 startActivity(intent);
-
             }
-
         } );
     }
 }

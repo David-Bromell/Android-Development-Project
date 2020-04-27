@@ -63,20 +63,17 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
-
     }
 
     // activity to open messenger
     public void openMessengerActivity() {
         Intent intent = new Intent(this, MessageTabsActivity.class);
         startActivity(intent);
-
     } // activity to open profile
 
     public void openMyProfileActivity() {
         Intent intentProfile = new Intent(this, ProfileActivity.class);
         startActivity(intentProfile);
-
     } // activity to open my lessons
 
     public void openMyLessonsActivity() {

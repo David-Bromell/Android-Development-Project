@@ -1,4 +1,3 @@
-
 package ie.ul.tutorfinder;
 
 import androidx.annotation.NonNull;
@@ -28,34 +27,19 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.database.core.Tag;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
-import java.net.URI;
-
 
 public class ProfileActivity extends AppCompatActivity {
 
-    private TextView FirstNameTextiView, EmailTextView, PhoneTextView, BirthDateTextView;
-    private FirebaseDatabase database;
-    private DatabaseReference userRef;
-    private FirebaseAuth mauth;
-    private String currentUserId;
-    private Button paymentBtn;
-    private Button logOut;
-    private Button myTutors;
-    private Button myLessons;
+    private TextView FirstNameTextView, EmailTextView, PhoneTextView, BirthDateTextView;
     ImageView profileImage;
-    String DISPLAY_NAME = null;
-    String PROFILE_IMG_URL = null;
     int TAKE_IMAGE_CODE = 10001;
     public static final String TAG = "TAG";
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
 
     public void openMyTutorsActivity() {
         Intent intentTutors = new Intent( this, MyTutorsActivity.class );
@@ -63,42 +47,40 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void openMyLessonsActivity() {
-        Intent intentLessons = new Intent( this, MyLessonsActivity.class );
+        Intent intentLessons = new Intent( this, EventActivity.class );
         startActivity( intentLessons );
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
+
         setContentView( R.layout.activity_profile );
-        logOut = findViewById( R.id.LogoutBtn );
-        myTutors = findViewById( R.id.myTutotrsbtn );
-        myLessons = findViewById( R.id.myLessonsbtn );
+        Button logOut = findViewById(R.id.LogoutBtn);
+        Button myTutors = findViewById(R.id.myTutotrsbtn);
+        Button myLessons = findViewById(R.id.myLessonsbtn);
 
-
-
-
-        myLessons.setOnClickListener( new View.OnClickListener() {
+        myLessons.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMyLessonsActivity();
             }
         } );
 
-        myTutors.setOnClickListener( new View.OnClickListener() {
+        myTutors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMyTutorsActivity();
             }
         } );
 
-        mauth = FirebaseAuth.getInstance();
-        currentUserId = mauth.getCurrentUser().getUid();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String currentUserId = mAuth.getCurrentUser().getUid();
 
-        userRef = FirebaseDatabase.getInstance().getReference().child( "Users" ).child( currentUserId );
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
-        paymentBtn = findViewById( R.id.paymentBtn );
-        paymentBtn.setOnClickListener( new View.OnClickListener() {
+        Button paymentBtn = findViewById(R.id.paymentBtn);
+        paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openPaymentActivity();
@@ -106,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         } );
 
-        FirstNameTextiView = findViewById( R.id.first_Name_TextView );
+        FirstNameTextView = findViewById( R.id.first_Name_TextView );
         EmailTextView = findViewById( R.id.email_TextView );
         PhoneTextView = findViewById( R.id.phone_TextView );
         BirthDateTextView = findViewById( R.id.birthDate_TextView );
@@ -114,27 +96,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         if(user!=null){
             Glide.with( this ).load(user.getPhotoUrl()).into(profileImage);
-
         }
 
-
-        userRef.addValueEventListener( new ValueEventListener() {
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 if (dataSnapshot.exists()) {
-
                     String userName = dataSnapshot.child( "name" ).getValue( String.class );
                     String email = dataSnapshot.child( "email" ).getValue( String.class );
                     String birthdate = dataSnapshot.child( "birthdate" ).getValue( String.class );
                     String phone = dataSnapshot.child( "phone" ).getValue( String.class );
 
-                    FirstNameTextiView.setText( "Welcome to your profile, " + userName + "!" );
+                    FirstNameTextView.setText( "Welcome to your profile, " + userName + "!" );
                     EmailTextView.setText( "EMAIL: " + email );
                     PhoneTextView.setText( "CONTACT NUM: " + phone );
                     BirthDateTextView.setText( "DOB: " + birthdate );
-
-
                 }
             }
 
@@ -144,7 +121,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         } );
 
-        logOut.setOnClickListener( new View.OnClickListener() {
+        logOut.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -160,7 +137,6 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     public void handleImageClick(View view) {
-
         Intent intent = new Intent( MediaStore.ACTION_IMAGE_CAPTURE );
         if (intent.resolveActivity( getPackageManager() ) != null) {
             startActivityForResult( intent, TAKE_IMAGE_CODE );
@@ -202,7 +178,8 @@ public class ProfileActivity extends AppCompatActivity {
                     }
                 } );
     }
-        private void getDownloadUrl (StorageReference reference){
+
+    private void getDownloadUrl (StorageReference reference){
         reference.getDownloadUrl().addOnSuccessListener( new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -210,24 +187,22 @@ public class ProfileActivity extends AppCompatActivity {
             setUserProfileUrl( uri );
             }
         } );
-        }
-        private void setUserProfileUrl(Uri uri){
-            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-
-            UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setPhotoUri(uri).build();
-            user.updateProfile( request ).addOnSuccessListener( new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText( ProfileActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
-
-                }
-            } )
-                    .addOnFailureListener( new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText( ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show();
-                        }
-                    } );
-        }
     }
+
+    private void setUserProfileUrl(Uri uri){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest request = new UserProfileChangeRequest.Builder().setPhotoUri(uri).build();
+        user.updateProfile( request ).addOnSuccessListener( new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText( ProfileActivity.this, "Update Successful", Toast.LENGTH_SHORT).show();
+            }
+        } ).addOnFailureListener( new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText( ProfileActivity.this, "Profile image failed...", Toast.LENGTH_SHORT).show();
+            }
+        } );
+    }
+}
