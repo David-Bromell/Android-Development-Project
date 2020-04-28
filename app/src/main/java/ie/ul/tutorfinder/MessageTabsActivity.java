@@ -22,9 +22,9 @@ public class MessageTabsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
 
     private void addActionBar(){
-        mToolbar = findViewById(R.id.main_page_toolbar);
+        mToolbar = findViewById(R.id.message_page_toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setTitle("Tutor Finder - Home");
+        mToolbar.setTitle("Tutor Finder - Messages");
     }
 
     @Override

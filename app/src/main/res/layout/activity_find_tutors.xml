@@ -6,6 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".FindTutorsActivity">
 
-    <include layout="@layout/app_bar_layout" android:id="@+id/main_page_toolbar"/>
+    <include layout="@layout/app_bar_layout" android:id="@+id/findTutors_page_toolbar"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

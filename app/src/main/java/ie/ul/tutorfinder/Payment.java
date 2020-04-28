@@ -16,9 +16,9 @@ public class Payment extends AppCompatActivity {
     private Toolbar mToolbar;
 
     private void addActionBar(){
-        mToolbar = findViewById(R.id.main_page_toolbar);
+        mToolbar = findViewById(R.id.payment_page_toolbar);
         setSupportActionBar(mToolbar);
-        //getSupportActionBar().setTitle("Tutor Finder - Home");
+        mToolbar.setTitle("Tutor Finder - Payment");
     }
 
     @Override

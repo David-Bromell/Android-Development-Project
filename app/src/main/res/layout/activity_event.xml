@@ -6,15 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".EventActivity">
 
-    <include layout="@layout/app_bar_layout" android:id="@+id/main_page_toolbar"/>
+    <include layout="@layout/app_bar_layout" android:id="@+id/event_page_toolbar"/>
 
     <com.squareup.timessquare.CalendarPickerView
         android:id="@+id/calender"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="57dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/main_page_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/event_page_toolbar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
