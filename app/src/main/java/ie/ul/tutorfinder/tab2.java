@@ -66,12 +66,13 @@ public class tab2<UserAdapter> extends Fragment {
                                         User user = snapshot.getValue(User.class);
                                         assert user != null;
                                         assert firebaseUser != null;
-                                        if (user.getUserType().equals("Student")) {
+                                        User.add(user);
+                                        /*if (user.getUserType().equals("Student")) {
                                                 User.add(user);
                                         }
                                         else if (user.getUserType().equals("Tutor")) {
                                                 User.add(user);
-                                        }
+                                        }*/
                                 }
 
                                 userAdapter = (UserAdapter) new UserAdaptProfo(getContext(), User);
