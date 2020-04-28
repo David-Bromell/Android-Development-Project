@@ -1,6 +1,10 @@
 package ie.ul.tutorfinder;
 
+import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -21,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,9 +38,11 @@ import java.util.List;
  * it inside the SupportMapFragment. This method will only be triggered once the user has
  * installed Google Play services and returned to the app.
  */
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
+    private static final String TAG ="" ;
     ListView ll;
     private GoogleMap mMap;
     DatabaseReference databaseReference;
@@ -43,6 +50,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     List<String> nameList, latitudeList, longitudeList;
     String uid;
     ArrayAdapter<String>adapter;
+    String strAddress = "Ballinagarde, Ballyneety";
+
+    public LatLng getLocationFromAddress(Context context, String strAddress) {
+
+        Geocoder coder = new Geocoder(context);
+        List<Address> address;
+        LatLng p1 = null;
+
+        try {
+            // May throw an IOException
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+
+            Address location = address.get(0);
+            p1 = new LatLng(location.getLatitude(), location.getLongitude() );
+
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+        }
+
+        return p1;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,18 +86,19 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mapFragment.getMapAsync( this );
 
-        ll= findViewById( R.id.listView);
+        ll = findViewById( R.id.listView );
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         nameList = new ArrayList<>();
         latitudeList = new ArrayList<>();
         longitudeList = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference = FirebaseDatabase.getInstance().getReference( "Users" );
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
+
+        databaseReference.addValueEventListener( new ValueEventListener() {
             @Override
-            public  void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 nameList.clear();
                 latitudeList.clear();
@@ -73,14 +106,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 String name, latitude, longitude;
 
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    if(ds.child("userType").getValue(String.class).equals("Tutor")){
-                        name = ds.child("name").getValue(String.class);
-                        latitude = ds.child("latitude").getValue(String.class);
-                        longitude = ds.child("longitude").getValue(String.class);
-                        nameList.add(name);
-                        latitudeList.add(latitude);
-                        longitudeList.add(longitude);
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
+                        name = ds.child( "name" ).getValue( String.class );
+                        latitude = ds.child( "latitude" ).getValue( String.class );
+                        longitude = ds.child( "longitude" ).getValue( String.class );
+                        nameList.add( name );
+                        latitudeList.add( latitude );
+                        longitudeList.add( longitude );
                     }
                 }
                 updateMap();
@@ -89,8 +122,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
-        });
+        } );
     }
+
+
 
     //Method to update the map with users as markers
     public void updateMap(){
@@ -114,6 +149,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng univLimerick = new LatLng( 52.6771541, -8.5869449 );
         mMap.addMarker( new MarkerOptions().position( univLimerick ).title( "University of Limerick" ) );
         mMap.moveCamera( CameraUpdateFactory.newLatLng( univLimerick ) );
+
+          LatLng yeet = getLocationFromAddress(MapsActivity.this, "disney land paris");
+        mMap.addMarker( new MarkerOptions().position( yeet ).title( "disney land" ) );
+        mMap.moveCamera( CameraUpdateFactory.newLatLng( yeet ) );
     }
+
 }
+
+
 
