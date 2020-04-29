@@ -8,6 +8,7 @@ public class User {
         //Default Constructor
     }
 
+    //CONSTRUCTOR FOR USERS DETAILS & GEOLOCATION
     User(String name, String email, String phone, String userType, String birthdate, String longitude, String Latitude) {
         this.Name = name;
         this.email = email;
@@ -18,6 +19,7 @@ public class User {
         this.Latitude = Latitude;
     }
 
+    // GETTERS AND SETTERS FOR ALL THE ABOVE LISTED VARIABLES IN CONSTRUCTORS, EACH OF THESE METHODS ARE USED THROUGHOUT THE APP
     public String getName() {
         return Name;
     }
