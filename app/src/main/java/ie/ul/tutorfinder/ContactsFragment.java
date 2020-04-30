@@ -28,7 +28,7 @@ import Adapter.UserAdaptProfo;
  * A simple {@link Fragment} subclass.
  * CONTACT LIST TAB (CONTACTS)
  */
-public class tab2<UserAdapter> extends Fragment {
+public class ContactsFragment<UserAdapter> extends Fragment {
         // RECYCLER VIEW USED TO DISPLAY CONTACTS
         private RecyclerView recyclerView;
         //BRIDGE BETWEEN RECYCLER VIEW AND DATABASE
@@ -36,7 +36,7 @@ public class tab2<UserAdapter> extends Fragment {
         //ARRAY CREATED TO HOLD USERS
         private List<User> User;
 
-        public tab2() {
+        public ContactsFragment() {
         // Required empty public constructor
         }
 
@@ -45,12 +45,12 @@ public class tab2<UserAdapter> extends Fragment {
                                  Bundle savedInstanceState) {
                 // Inflate the layout for this fragment
                 //CREATES VIEW AND INFLATES SAME
-                View view =inflater.inflate(R.layout.fragment_tab2, container,false);
+                View view =inflater.inflate(R.layout.fragment_contacts, container,false);
                 //SETS RECYCLERVIEW = TO RECYCLER VIEW IN LAYOUT
                 recyclerView=view.findViewById(R.id.recyclerView);
                 //GIVES IT A FIXED SIZE
                 recyclerView.setHasFixedSize(true);
-                //ARRANGES LAYOUT LINERALY
+                //ARRANGES LAYOUT LINEARLY
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 //SET USER TO ARRAYLIST
                 User= new ArrayList<>();

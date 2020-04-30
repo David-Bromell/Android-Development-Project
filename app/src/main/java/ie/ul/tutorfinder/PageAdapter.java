@@ -22,10 +22,10 @@ public class PageAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 //IF TAB 1 THEN DISPLAYS TAB AT POSITION 0
-                return new tab1();
+                return new ChatFragment();
             case 1:
                 //IF TAB 2 THEN DISPLAYS TAB AT POSITION 2
-                return new tab2();
+                return new ContactsFragment();
             default:
                 return null;
         }
