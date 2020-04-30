@@ -107,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String name, latitude, longitude;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
+                    //if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
                         name = ds.child( "name" ).getValue( String.class );
                         latitude = ds.child( "latitude" ).getValue( String.class );
                         longitude = ds.child( "longitude" ).getValue( String.class );
@@ -115,7 +115,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         latitudeList.add( latitude );
                         longitudeList.add( longitude );
                     }
-                }
+               // }
                 updateMap();
             }
 

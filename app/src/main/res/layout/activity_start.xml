@@ -85,20 +85,13 @@
                 android:inputType="phone" />
 
             <EditText
-                android:id="@+id/etLongitude"
+                android:id="@+id/etAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:ems="10"
-                android:hint="Longitude"
-                android:inputType="phone" />
-
-            <EditText
-                android:id="@+id/etLatitude"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Latitude"
-                android:inputType="phone" />
+                android:hint="Address"
+                android:inputType="textPostalAddress" />
 
             <Spinner
                 android:id="@+id/spinnerUserType"
