@@ -47,7 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     DatabaseReference databaseReference;
     FirebaseUser user;
-    List<String> nameList, latitudeList, longitudeList;
+    List<String> nameList, addressList;
     String uid;
     ArrayAdapter<String>adapter;
     String strAddress = "Ballinagarde, Ballyneety";
@@ -90,8 +90,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
         nameList = new ArrayList<>();
-        latitudeList = new ArrayList<>();
-        longitudeList = new ArrayList<>();
+        addressList = new ArrayList<>();
 
         databaseReference = FirebaseDatabase.getInstance().getReference( "Users" );
 
@@ -101,21 +100,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 nameList.clear();
-                latitudeList.clear();
-                longitudeList.clear();
+                addressList.clear();
 
-                String name, latitude, longitude;
+                String name, address;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
                     //if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
                         name = ds.child( "name" ).getValue( String.class );
-                        latitude = ds.child( "latitude" ).getValue( String.class );
-                        longitude = ds.child( "longitude" ).getValue( String.class );
+                        address = ds.child( "address" ).getValue( String.class );
                         nameList.add( name );
-                        latitudeList.add( latitude );
-                        longitudeList.add( longitude );
+                        addressList.add( address );
                     }
-               // }
+
                 updateMap();
             }
 
@@ -134,7 +130,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         for(int i=0; i<nameList.size(); i++){
 
-            newMarker = new LatLng(Double.parseDouble(latitudeList.get(i)),Double.parseDouble(longitudeList.get(i)));
+            newMarker = getLocationFromAddress(MapsActivity.this, addressList.get(i));
             mMap.addMarker(new MarkerOptions().position(newMarker).title(nameList.get(i)));
             if(i==(nameList.size()-1)){
                 mMap.moveCamera(CameraUpdateFactory.newLatLng(newMarker));
