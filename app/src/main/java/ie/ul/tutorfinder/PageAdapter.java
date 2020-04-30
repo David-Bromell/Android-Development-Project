@@ -34,7 +34,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     @Override
     //USED TO COUNT TABS
     public int getCount() {
-        return noTabs;
+        return 2;
     }
 
     @Override
