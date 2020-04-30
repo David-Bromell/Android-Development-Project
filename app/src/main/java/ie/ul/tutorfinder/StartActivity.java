@@ -154,7 +154,11 @@ public class StartActivity extends AppCompatActivity {
                                                             .getCurrentUser()
                                                             .getUid()
                                                     ).setValue(user);
-                                            Toast.makeText( StartActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
+                                            Toast.makeText( StartActivity.this, "Registered Successfully! Please Login!", Toast.LENGTH_LONG ).show();
+                                            Intent mIntent = new Intent(StartActivity.this, LoginActivity.class);
+                                            mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(mIntent);
+                                            finish();
                                         }
                                         else {
                                             Toast.makeText( StartActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
