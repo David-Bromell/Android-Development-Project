@@ -192,7 +192,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void openMySettingsActivity() {
-        Intent intent = new Intent( this, Payment.class );
+        Intent intent = new Intent( this, ProfileSettings.class );
         startActivity( intent );
     }
 
