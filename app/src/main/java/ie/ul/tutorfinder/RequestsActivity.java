@@ -15,24 +15,10 @@ public class RequestsActivity extends AppCompatActivity {
 
     private Toolbar mToolbar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_requests);
-
-        addActionBar();
-    }
-
-    private void loginRedirect(){
-        Intent startIntent = new Intent(RequestsActivity.this, LoginActivity.class);
-        startActivity(startIntent);
-        finish();
-    }
-
     private void addActionBar(){
-        mToolbar = findViewById(R.id.profile_page_toolbar);
+        mToolbar = findViewById(R.id.requests_page_toolbar);
         setSupportActionBar(mToolbar);
-        mToolbar.setTitle("Tutor Finder - Profile");
+        mToolbar.setTitle("Tutor Finder - Connect Requests");
     }
 
     @Override
@@ -55,4 +41,19 @@ public class RequestsActivity extends AppCompatActivity {
 
         return true;
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_requests);
+
+        addActionBar();
+    }
+
+    private void loginRedirect(){
+        Intent startIntent = new Intent(RequestsActivity.this, LoginActivity.class);
+        startActivity(startIntent);
+        finish();
+    }
+
 }
