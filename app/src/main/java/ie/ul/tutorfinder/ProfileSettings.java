@@ -34,8 +34,6 @@ public class ProfileSettings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_settings);
 
-        String user_id = mCurrentUser.getUid();
-
         Button changeName = findViewById(R.id.chngNamebtn);
         Button changeNumber = findViewById(R.id.chngPNumbtn);
 
@@ -54,6 +52,7 @@ public class ProfileSettings extends AppCompatActivity {
         });
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
+        String user_id = mCurrentUser.getUid();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
 
         mDatabaseReference.addValueEventListener(new ValueEventListener() {
