@@ -6,4 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".ProfileSettings">
 
+    <Button
+        android:id="@+id/chngNamebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="148dp"
+        android:layout_marginTop="220dp"
+        android:foregroundGravity="center_vertical"
+        android:text="Change Name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/chngPNumbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="28dp"
+        android:text="Change Number"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chngPicbtn" />
+
+    <Button
+        android:id="@+id/chngPicbtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="140dp"
+        android:layout_marginTop="24dp"
+        android:text="Change Picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chngNamebtn" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
