@@ -12,10 +12,17 @@
         android:id="@+id/paymentBtn"
         android:layout_width="120dp"
         android:layout_height="53dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="28dp"
         android:backgroundTint="#0A79C3"
         android:text="Payment"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="496dp" />
+        app:layout_constraintBottom_toTopOf="@+id/LogoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/myLessonsbtn"
+        app:layout_constraintTop_toBottomOf="@+id/requestsBtn" />
 
     <Button
         android:id="@+id/myLessonsbtn"
@@ -40,6 +47,7 @@
         android:backgroundTint="#0A79C3"
         android:text="@string/my_tutors"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.228"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,6 +108,7 @@
         app:srcCompat="@android:mipmap/sym_def_app_icon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="409dp"
         android:layout_height="180dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -166,9 +175,16 @@
         android:id="@+id/requestsBtn"
         android:layout_width="120dp"
         android:layout_height="53dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="17dp"
         android:backgroundTint="#0A79C3"
         android:text="Requests"
-        tools:layout_editor_absoluteX="231dp"
-        tools:layout_editor_absoluteY="426dp" />
+        app:layout_constraintBottom_toTopOf="@+id/paymentBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/myTutotrsbtn"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

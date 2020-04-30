@@ -88,6 +88,11 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity( intentLessons );
     }
 
+    public void openMyRequestsActivity() {
+        Intent intentRequests = new Intent( this, RequestsActivity.class );
+        startActivity( intentRequests );
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -98,6 +103,8 @@ public class ProfileActivity extends AppCompatActivity {
         Button logOut = findViewById(R.id.LogoutBtn);
         Button myTutors = findViewById(R.id.myTutotrsbtn);
         Button myLessons = findViewById(R.id.myLessonsbtn);
+        Button myRequests = findViewById(R.id.requestsBtn);
+        Button paymentBtn = findViewById(R.id.paymentBtn);
 
         myLessons.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,20 +112,18 @@ public class ProfileActivity extends AppCompatActivity {
                 openMyLessonsActivity();
             }
         } );
-
         myTutors.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMyTutorsActivity();
             }
         } );
-
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        String currentUserId = mAuth.getCurrentUser().getUid();
-
-        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
-
-        Button paymentBtn = findViewById(R.id.paymentBtn);
+        myRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMyRequestsActivity();
+            }
+        });
         paymentBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -126,6 +131,10 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
         } );
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        String currentUserId = mAuth.getCurrentUser().getUid();
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
 
         FirstNameTextView = findViewById( R.id.first_Name_TextView );
         EmailTextView = findViewById( R.id.email_TextView );
