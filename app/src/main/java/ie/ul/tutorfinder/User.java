@@ -67,7 +67,6 @@ public class User {
         Birthdate = birthdate;
     }
 
-
 }
 
 
