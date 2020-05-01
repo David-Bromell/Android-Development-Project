@@ -91,6 +91,17 @@ public class ConnectActivity extends AppCompatActivity {
             @Override
             protected void onBindViewHolder(@NonNull userViewContainer userViewContainer, int i, @NonNull User user) {
                 userViewContainer.setName(user.getName());
+
+                final String user_id = getRef(i).getKey();
+
+                userViewContainer.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent otherProfileIntent = new Intent(ConnectActivity.this, OtherProfileActivity.class);
+                        otherProfileIntent.putExtra("user_id", user_id);
+                        startActivity(otherProfileIntent);
+                    }
+                });
             }
 
             @NonNull
