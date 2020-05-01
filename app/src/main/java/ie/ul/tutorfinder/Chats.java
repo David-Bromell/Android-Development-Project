@@ -1,15 +1,20 @@
 package ie.ul.tutorfinder;
 
+//USED TO HANDLE CONSTRUCTORS ALONG WITH GETTERS AND SETTERS FOR MESSAGING
 public class Chats {
 
+    //SENDER
     private String sender;
+    //RECIPIENT
     private String recipient;
+    //MESSAGE
     private String message;
 
     public Chats() {
         //Mandatory Default Constructor
     }
 
+    //CONSTRUCTOR FOR SENDER RECIPIENT AND MESSAGE
     public Chats(String sender, String recipient, String message) {
         this.sender = sender;
         this.recipient = recipient;
@@ -17,6 +22,7 @@ public class Chats {
     }
 
 
+    //GETTERS AND SETTERS FOR SENDER, RECIEVER AND MESSAGE
     public String getSender() {
         return sender;
     }

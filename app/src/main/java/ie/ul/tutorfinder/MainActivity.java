@@ -97,7 +97,14 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 openFindTutorsActivity();
             }
+        });
 
+        Button connectBtn = findViewById(R.id.connectBtn);
+        connectBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openConnectActivity();
+            }
         });
     }
 
@@ -125,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
     public void openFindTutorsActivity() {
         Intent intentFindTutors = new Intent(this, MapsActivity.class);
         startActivity(intentFindTutors);
+    }
+
+    public void openConnectActivity() {
+        Intent intentConnect = new Intent(this, ConnectActivity.class);
+        startActivity(intentConnect);
     }
 
     @Override

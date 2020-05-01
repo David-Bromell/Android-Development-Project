@@ -2,28 +2,37 @@ package ie.ul.tutorfinder;
 
 public class User {
 
-    private String Name, email, phone, userType, Birthdate, Longitude, Latitude = null;
+    private String Name, email, phone, userType, Birthdate, Address  = null;
 
     public User() {
         //Default Constructor
     }
 
-    User(String name, String email, String phone, String userType, String birthdate, String longitude, String Latitude) {
+    //CONSTRUCTOR FOR USERS DETAILS & GEOLOCATION
+    User(String name, String email, String phone, String userType, String birthdate, String address  ) {
         this.Name = name;
         this.email = email;
         this.phone = phone;
         this.userType = userType;
         this.Birthdate = birthdate;
-        this.Longitude = longitude;
-        this.Latitude = Latitude;
+        this.Address = address;
     }
 
+    // GETTERS AND SETTERS FOR ALL THE ABOVE LISTED VARIABLES IN CONSTRUCTORS, EACH OF THESE METHODS ARE USED THROUGHOUT THE APP
     public String getName() {
         return Name;
     }
 
     public void setName(String name) {
         Name = name;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
     }
 
     public String getEmail() {
@@ -58,21 +67,6 @@ public class User {
         Birthdate = birthdate;
     }
 
-    public String getLatitude() {
-        return Latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        Latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return Longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        Longitude = longitude;
-    }
 }
 
 

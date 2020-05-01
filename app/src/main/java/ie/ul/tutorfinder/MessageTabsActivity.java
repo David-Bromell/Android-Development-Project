@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MessageTabsActivity extends AppCompatActivity {
     private ViewPager viewPager;
-    private TabItem tab1,tab2, tab3;
+    private TabItem chatFrag,contactFrag;
     public PagerAdapter pagerAdapter;
     private Toolbar mToolbar;
 
@@ -62,8 +62,8 @@ public class MessageTabsActivity extends AppCompatActivity {
         addActionBar();
 
         TabLayout tabLayout = findViewById(R.id.TabLayout);
-        tab1 = findViewById(R.id.Tab1);
-        tab2 = findViewById(R.id.Tab2);
+        chatFrag = findViewById(R.id.Tab1);
+        contactFrag = findViewById(R.id.Tab2);
         viewPager = findViewById(R.id.viewpager);
 
         pagerAdapter = new PageAdapter(getSupportFragmentManager(), tabLayout.getTabCount());

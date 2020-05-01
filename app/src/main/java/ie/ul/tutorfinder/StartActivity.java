@@ -29,7 +29,7 @@ import java.util.GregorianCalendar;
 
 public class StartActivity extends AppCompatActivity {
     Button login;
-    EditText email, password, name, birthdate, phone, Longitude, Latitude;
+    EditText email, password, name, birthdate, phone, address ;
     AppCompatSpinner userType;
     Button signUp;
 
@@ -71,8 +71,7 @@ public class StartActivity extends AppCompatActivity {
         name = findViewById(R.id.etFullName);
         birthdate = findViewById(R.id.etBirthdate);
         phone = findViewById(R.id.etMobile);
-        Longitude = findViewById(R.id.etLongitude);
-        Latitude = findViewById(R.id.etLatitude);
+        address = findViewById( R.id.etAddress );
         userType = findViewById(R.id.spinnerUserType);
         mDisplayDate = findViewById(R.id.etBirthdate);
 
@@ -121,21 +120,21 @@ public class StartActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
 
-                                            String Long, Lat;
+                                            //String Long, Lat;
 
-                                            if(Longitude.getText().toString().isEmpty()) {
-                                                Long = "-8.5869449";
-                                            }
-                                            else{
-                                                Long = Longitude.getText().toString();
-                                            }
+                                           // if(Longitude.getText().toString().isEmpty()) {
+                                               // Long = "-8.5869449";
+                                           // }
+                                           // else{
+                                                //Long = Longitude.getText().toString();
+                                            //}
 
-                                            if(Latitude.getText().toString().isEmpty()){
-                                                Lat = "52.6771541";
-                                            }
-                                            else{
-                                                Lat = Latitude.getText().toString();
-                                            }
+                                            //if(Latitude.getText().toString().isEmpty()){
+                                           //    Lat = "52.6771541";
+                                           // }
+                                            //else{
+                                               // Lat = Latitude.getText().toString();
+                                           // }
 
                                             User user = new User(
                                                     name.getText().toString(),
@@ -143,8 +142,9 @@ public class StartActivity extends AppCompatActivity {
                                                     phone.getText().toString(),
                                                     userType.getSelectedItem().toString(),
                                                     birthdate.getText().toString(),
-                                                    Long,
-                                                    Lat
+                                                    address.getText().toString()
+
+
                                             );
 
                                             FirebaseDatabase.getInstance()
@@ -154,7 +154,11 @@ public class StartActivity extends AppCompatActivity {
                                                             .getCurrentUser()
                                                             .getUid()
                                                     ).setValue(user);
-                                            Toast.makeText( StartActivity.this, "registered successfully!", Toast.LENGTH_LONG ).show();
+                                            Toast.makeText( StartActivity.this, "Registered Successfully! Please Login!", Toast.LENGTH_LONG ).show();
+                                            Intent mIntent = new Intent(StartActivity.this, LoginActivity.class);
+                                            mIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                            startActivity(mIntent);
+                                            finish();
                                         }
                                         else {
                                             Toast.makeText( StartActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG ).show();
