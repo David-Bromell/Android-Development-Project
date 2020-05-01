@@ -51,7 +51,7 @@ public class User {
         this.phone = phone;
     }
 
-    String getUserType() {
+    public String getUserType() {
         return userType;
     }
 
