@@ -22,6 +22,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.internal.$Gson$Preconditions;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class OtherProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
@@ -29,7 +32,7 @@ public class OtherProfileActivity extends AppCompatActivity {
     private Button mSendRequestbtn;
     private DatabaseReference mDatabaseReference;
     private String current_state;
-    private DatabaseReference friendReqRef;
+    private DatabaseReference friendReqRef, friendRef;
     private FirebaseUser current_user;
 
     @Override
@@ -40,6 +43,7 @@ public class OtherProfileActivity extends AppCompatActivity {
         final String user_id = getIntent().getStringExtra("user_id");
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         friendReqRef = FirebaseDatabase.getInstance().getReference().child("friend_requests");
+        friendRef = FirebaseDatabase.getInstance().getReference().child("friends");
         current_user = FirebaseAuth.getInstance().getCurrentUser();
 
         mProfileImage = findViewById(R.id.profileImage);
@@ -59,6 +63,30 @@ public class OtherProfileActivity extends AppCompatActivity {
 
                 mName.setText(display_name);
                 mEmail.setText(display_email);
+
+                friendReqRef.child(current_user.getUid()).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        if(dataSnapshot.hasChild(user_id)){
+
+                            String reqType = dataSnapshot.child(user_id).child("request_type").getValue(String.class);
+
+                            if(reqType.equals("received")){
+                                current_state="request_received";
+                                mSendRequestbtn.setText("Accept Request");
+                            } else if(reqType.equals("sent")){
+                                current_state="request_sent";
+                                mSendRequestbtn.setText("Cancel Request");
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
@@ -103,7 +131,8 @@ public class OtherProfileActivity extends AppCompatActivity {
 
                 }
 
-                //Cancel Request State
+                //Cancel Request Processing
+
                 if(current_state.equals("request_sent")){
                     friendReqRef.child(current_user.getUid()).child(user_id).removeValue()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -122,6 +151,47 @@ public class OtherProfileActivity extends AppCompatActivity {
                                     Toast.makeText(OtherProfileActivity.this, "Request Cancelled", Toast.LENGTH_SHORT).show();
                         }
                     });
+                }
+
+                //Request Received Processing
+
+                if(current_state.equals("request_received")){
+
+                    final String currentDate = DateFormat.getDateTimeInstance().format(new Date());
+                    friendRef.child(current_user.getUid()).child(user_id).setValue(currentDate)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+
+                            friendRef.child(user_id).child(current_user.getUid()).setValue(currentDate)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                            friendReqRef.child(current_user.getUid()).child(user_id).removeValue()
+                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                        @Override
+                                                        public void onSuccess(Void aVoid) {
+                                                            friendReqRef.child(user_id).child(current_user.getUid()).removeValue()
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+
+                                                                            mSendRequestbtn.setEnabled(true);
+                                                                            current_state="friends";
+                                                                            mSendRequestbtn.setText("Disconnect");
+                                                                        }
+                                                                    });
+                                                            Toast.makeText(OtherProfileActivity.this, "You are now Friends!", Toast.LENGTH_SHORT).show();
+                                                        }
+                                                    });
+
+                                        }
+                                    });
+
+                        }
+                    });
+
                 }
             }
         });
