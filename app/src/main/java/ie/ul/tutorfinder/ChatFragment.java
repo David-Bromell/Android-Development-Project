@@ -9,17 +9,40 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
+
+import Adapter.MessageAdapter;
 
 
 public class ChatFragment extends Fragment {
 
+
     private EditText txtBox;
+    private RecyclerView mMessagesList;
+    private final List<Messages> messagesList = new ArrayList<>();
+    private LinearLayoutManager mLinearLayout;
+    private MessageAdapter mAdapter;
+    private String mCurrentUserId;
+
+    private DatabaseReference mRootRef;
+    private FirebaseAuth fbuser;
+
+
+
 
     public ChatFragment() {
         // Required empty public constructor
@@ -39,6 +62,16 @@ public class ChatFragment extends Fragment {
         Button send = (Button) Objects.requireNonNull(getView()).findViewById(R.id.SendBtn);
         //SETS TEXT BOX = TO TEXT BOX BY LAYOUT ID
         txtBox = getView().findViewById(R.id.MessageTxt);
+        //mCurrentUserId = mAuth.getCurrentUser().get();
+        mAdapter = new MessageAdapter(getContext(), messagesList);
+        mMessagesList= (RecyclerView)getView().findViewById(R.id.messages_list);
+        mLinearLayout = new LinearLayoutManager(getActivity());
+        mMessagesList.setHasFixedSize(true);
+        mMessagesList.setLayoutManager(mLinearLayout);
+        mMessagesList.setAdapter(mAdapter);
+        loadMessages();
+
+
         //CREATES BUTTON LISTENER
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,6 +85,65 @@ public class ChatFragment extends Fragment {
             }
         });
     }
+
+
+    private void loadMessages() {
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        //SETS REFERENCE = USERS UNDER USERS PATH IN DATABASE
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Messages message = dataSnapshot.getValue(Messages.class);
+                messagesList.add(message);
+                mAdapter.notifyDataSetChanged();
+                mAdapter = new MessageAdapter(getContext(), messagesList);
+                //SETS ADAPTER TO RECYCLER VIEW
+                mMessagesList.setAdapter((RecyclerView.Adapter) mAdapter);
+            }
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+
+//        mRootRef.child("Messages").addChildEventListener(new ChildEventListener() {
+//////.child(mCurrentUserId)
+////
+////            @Override
+////            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+////                Messages message = dataSnapshot.getValue(Messages.class);
+////                messagesList.add(message);
+////                mAdapter.notifyDataSetChanged();
+////            }
+////
+////            @Override
+////            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+////
+////            }
+////
+////            @Override
+////            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+////
+////            }
+////
+////            @Override
+////            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+////
+////            }
+////
+////            @Override
+////            public void onCancelled(@NonNull DatabaseError databaseError) {
+////
+////            }
+////        });
+////
+        });
+    }
+
 
     // SEND MESSAGE FUNCTION USES HASHMAP TO PUSH MESSAGE TO DATABASE
     private void sendMessage(String sender, String recipient, String message) {
