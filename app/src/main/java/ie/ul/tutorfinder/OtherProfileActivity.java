@@ -24,6 +24,7 @@ import com.google.gson.internal.$Gson$Preconditions;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 public class OtherProfileActivity extends AppCompatActivity {
 
@@ -32,7 +33,7 @@ public class OtherProfileActivity extends AppCompatActivity {
     private Button mSendRequestbtn, mDeclinebtn;
     private DatabaseReference mDatabaseReference;
     private String current_state;
-    private DatabaseReference friendReqRef, friendRef;
+    private DatabaseReference friendReqRef, friendRef, mNotificationDatabase;
     private FirebaseUser current_user;
 
     @Override
@@ -44,6 +45,8 @@ public class OtherProfileActivity extends AppCompatActivity {
         mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
         friendReqRef = FirebaseDatabase.getInstance().getReference().child("friend_requests");
         friendRef = FirebaseDatabase.getInstance().getReference().child("friends");
+        mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
+
         current_user = FirebaseAuth.getInstance().getCurrentUser();
 
         mProfileImage = findViewById(R.id.profileImage);
@@ -139,12 +142,24 @@ public class OtherProfileActivity extends AppCompatActivity {
                                     @Override
                                     public void onSuccess(Void aVoid) {
                                         mSendRequestbtn.setEnabled(true);
-                                        current_state = "request_sent";
-                                        mSendRequestbtn.setText("Cancel Request");
-                                        mDeclinebtn.setVisibility( View.INVISIBLE );
-                                        mDeclinebtn.setEnabled( false );
+                                        HashMap<String, String>NotifcationData = new HashMap<>();
+                                        NotifcationData.put( "from", current_user.getUid() );
+                                        NotifcationData.put( "type", current_user.getUid() );
+                                        NotifcationData.put( "type", "request");
 
-                                        Toast.makeText(OtherProfileActivity.this,"Request Sent!", Toast.LENGTH_SHORT).show();
+
+                                        mNotificationDatabase.child( user_id).push().setValue( NotifcationData ).addOnSuccessListener( new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+                                                current_state = "request_sent";
+                                                mSendRequestbtn.setText("Cancel Request");
+                                                mDeclinebtn.setVisibility( View.INVISIBLE );
+                                                mDeclinebtn.setEnabled( false );
+
+                                                Toast.makeText(OtherProfileActivity.this,"Request Sent!", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } );
+
                                     }
                                 });
                             }else{
