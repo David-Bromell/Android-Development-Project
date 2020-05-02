@@ -79,6 +79,20 @@ public class OtherProfileActivity extends AppCompatActivity {
                                 current_state="request_sent";
                                 mSendRequestbtn.setText("Cancel Request");
                             }
+                        } else{
+                          friendReqRef.child( current_user.getUid()).addListenerForSingleValueEvent( new ValueEventListener() {
+                              @Override
+                              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                  if (dataSnapshot.hasChild( user_id )) {
+                                      current_state="friends";
+                                      mSendRequestbtn.setText("Disconnect");
+                                  }
+                              }
+                              @Override
+                              public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                              }
+                          } );
                         }
                     }
 
