@@ -226,9 +226,10 @@ public class OtherProfileActivity extends AppCompatActivity {
                                                                             mSendRequestbtn.setText("Disconnect");
                                                                             mDeclinebtn.setVisibility( View.INVISIBLE );
                                                                             mDeclinebtn.setEnabled( false );
+                                                                            Toast.makeText(OtherProfileActivity.this, "You are now Friends!", Toast.LENGTH_SHORT).show();
                                                                         }
                                                                     });
-                                                            Toast.makeText(OtherProfileActivity.this, "You are now Friends!", Toast.LENGTH_SHORT).show();
+
                                                         }
                                                     });
 
