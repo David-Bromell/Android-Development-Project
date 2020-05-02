@@ -29,7 +29,7 @@ public class OtherProfileActivity extends AppCompatActivity {
 
     private ImageView mProfileImage;
     private TextView mName, mEmail, mFriendsCount;
-    private Button mSendRequestbtn;
+    private Button mSendRequestbtn, mDeclinebtn;
     private DatabaseReference mDatabaseReference;
     private String current_state;
     private DatabaseReference friendReqRef, friendRef;
@@ -51,6 +51,8 @@ public class OtherProfileActivity extends AppCompatActivity {
         mEmail = findViewById(R.id.profileEmail);
         mFriendsCount = findViewById(R.id.profileFriendsCount);
         mSendRequestbtn = findViewById(R.id.sendRequestbtn);
+        mDeclinebtn = findViewById(R.id.declineRequestbtn);
+
 
         current_state = "not_friends";
 
@@ -75,10 +77,16 @@ public class OtherProfileActivity extends AppCompatActivity {
                             if(reqType.equals("received")){
                                 current_state="request_received";
                                 mSendRequestbtn.setText("Accept Request");
+                                mDeclinebtn.setVisibility( View.VISIBLE );
+                                mDeclinebtn.setEnabled( true );
+
                             } else if(reqType.equals("sent")){
                                 current_state="request_sent";
                                 mSendRequestbtn.setText("Cancel Request");
+                                mDeclinebtn.setVisibility( View.INVISIBLE );
+                                mDeclinebtn.setEnabled( false );
                             }
+
                         } else{
                           friendReqRef.child( current_user.getUid()).addListenerForSingleValueEvent( new ValueEventListener() {
                               @Override
@@ -86,6 +94,8 @@ public class OtherProfileActivity extends AppCompatActivity {
                                   if (dataSnapshot.hasChild( user_id )) {
                                       current_state="friends";
                                       mSendRequestbtn.setText("Disconnect");
+                                      mDeclinebtn.setVisibility( View.INVISIBLE );
+                                      mDeclinebtn.setEnabled( false );
                                   }
                               }
                               @Override
@@ -131,6 +141,9 @@ public class OtherProfileActivity extends AppCompatActivity {
                                         mSendRequestbtn.setEnabled(true);
                                         current_state = "request_sent";
                                         mSendRequestbtn.setText("Cancel Request");
+                                        mDeclinebtn.setVisibility( View.INVISIBLE );
+                                        mDeclinebtn.setEnabled( false );
+
                                         Toast.makeText(OtherProfileActivity.this,"Request Sent!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
@@ -160,6 +173,8 @@ public class OtherProfileActivity extends AppCompatActivity {
                                             mSendRequestbtn.setEnabled(true);
                                             current_state="not_friends";
                                             mSendRequestbtn.setText("Connect");
+                                            mDeclinebtn.setVisibility( View.INVISIBLE );
+                                            mDeclinebtn.setEnabled( false );
                                         }
                                     });
                                     Toast.makeText(OtherProfileActivity.this, "Request Cancelled", Toast.LENGTH_SHORT).show();
@@ -194,6 +209,8 @@ public class OtherProfileActivity extends AppCompatActivity {
                                                                             mSendRequestbtn.setEnabled(true);
                                                                             current_state="friends";
                                                                             mSendRequestbtn.setText("Disconnect");
+                                                                            mDeclinebtn.setVisibility( View.INVISIBLE );
+                                                                            mDeclinebtn.setEnabled( false );
                                                                         }
                                                                     });
                                                             Toast.makeText(OtherProfileActivity.this, "You are now Friends!", Toast.LENGTH_SHORT).show();
