@@ -16,9 +16,10 @@ public class Messages {
 
     //CONSTRUCTOR FOR SENDER RECIPIENT AND MESSAGE
     public Messages(String sender, String recipient, String message) {
+        this.message = message;
         this.sender = sender;
         this.recipient = recipient;
-        this.message = message;
+
     }
 
 

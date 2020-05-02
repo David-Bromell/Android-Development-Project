@@ -8,17 +8,18 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -90,10 +91,10 @@ public class ChatFragment extends Fragment {
     private void loadMessages() {
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         //SETS REFERENCE = USERS UNDER USERS PATH IN DATABASE
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Messages");
+        reference.addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Messages message = dataSnapshot.getValue(Messages.class);
                 messagesList.add(message);
                 mAdapter.notifyDataSetChanged();
@@ -102,12 +103,26 @@ public class ChatFragment extends Fragment {
                 mMessagesList.setAdapter((RecyclerView.Adapter) mAdapter);
             }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
+        });
 
 
 //        mRootRef.child("Messages").addChildEventListener(new ChildEventListener() {
@@ -141,8 +156,8 @@ public class ChatFragment extends Fragment {
 ////            }
 ////        });
 ////
-        });
     }
+
 
 
     // SEND MESSAGE FUNCTION USES HASHMAP TO PUSH MESSAGE TO DATABASE
