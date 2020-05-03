@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,19 +33,13 @@ public class ChatFragment extends Fragment {
 
 
     private EditText txtBox;
-    private TextView bubble;
-    private RecyclerView mMessagesList;
-    private final List<Messages> messagesList = new ArrayList<>();
-    private LinearLayoutManager mLinearLayout;
-    private MessageAdapter mAdapter;
-    private FirebaseUser mCurrentUserId;
-    private String mChatUser;
-    private FirebaseAuth mAuth;
-   // private HashMap<String, Object> hasher = new HashMap<>();
+    private RecyclerView messagesRecyclerList;
 
-    private DatabaseReference mRootRef;
-    private FirebaseAuth fbuser;
-    public String dbref;
+    private final List<Messages> messagesList = new ArrayList<>();
+    private LinearLayoutManager linearLayoutManager;
+
+    private MessageAdapter messageAdapter;
+
 
 
 
@@ -68,15 +61,15 @@ public class ChatFragment extends Fragment {
         //SETS SEND BUTTON = TO SEND BUTTON BY LAYOUT ID
         Button send = (Button) Objects.requireNonNull(getView()).findViewById(R.id.SendBtn);
         //SETS TEXT BOX = TO TEXT BOX BY LAYOUT ID
-        mAuth = FirebaseAuth.getInstance();
+
         txtBox = getView().findViewById(R.id.MessageTxt);
-        mCurrentUserId = mAuth.getCurrentUser();
-        mAdapter = new MessageAdapter(getContext(), messagesList);
-        mMessagesList= (RecyclerView)getView().findViewById(R.id.messages_list);
-        mLinearLayout = new LinearLayoutManager(getActivity());
-        mMessagesList.setHasFixedSize(true);
-        mMessagesList.setLayoutManager(mLinearLayout);
-        mMessagesList.setAdapter(mAdapter);
+
+        messageAdapter = new MessageAdapter(getContext(), messagesList);
+        messagesRecyclerList= (RecyclerView)getView().findViewById(R.id.messages_list);
+        linearLayoutManager = new LinearLayoutManager(getActivity());
+        messagesRecyclerList.setHasFixedSize(true);
+        messagesRecyclerList.setLayoutManager(linearLayoutManager);
+        messagesRecyclerList.setAdapter(messageAdapter);
         loadMessages();
 
 
@@ -101,7 +94,6 @@ public class ChatFragment extends Fragment {
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         //SETS REFERENCE = USERS UNDER USERS PATH IN DATABASE
-        bubble = getView().findViewById(R.id.message_text_layout);
         final String message = txtBox.getText().toString();
       //  final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().getRoot();
 
@@ -112,9 +104,9 @@ public class ChatFragment extends Fragment {
                 Messages Message = dataSnapshot.child(message).getValue(Messages.class);
                //reference.child("Messages").push().setValue(Message);
                 messagesList.add(Message);
-                mAdapter.notifyDataSetChanged();
-                mAdapter = new MessageAdapter(getContext(), messagesList);
-                mMessagesList.setAdapter((RecyclerView.Adapter) mAdapter);
+                messageAdapter.notifyDataSetChanged();
+                messageAdapter = new MessageAdapter(getContext(), messagesList);
+                messagesRecyclerList.setAdapter((RecyclerView.Adapter) messageAdapter);
 
             }
 
