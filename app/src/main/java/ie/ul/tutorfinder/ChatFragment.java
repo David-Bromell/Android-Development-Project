@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,14 +34,19 @@ public class ChatFragment extends Fragment {
 
 
     private EditText txtBox;
+    private TextView bubble;
     private RecyclerView mMessagesList;
     private final List<Messages> messagesList = new ArrayList<>();
     private LinearLayoutManager mLinearLayout;
     private MessageAdapter mAdapter;
-    private String mCurrentUserId;
+    private FirebaseUser mCurrentUserId;
+    private String mChatUser;
+    private FirebaseAuth mAuth;
+   // private HashMap<String, Object> hasher = new HashMap<>();
 
     private DatabaseReference mRootRef;
     private FirebaseAuth fbuser;
+    public String dbref;
 
 
 
@@ -62,8 +68,9 @@ public class ChatFragment extends Fragment {
         //SETS SEND BUTTON = TO SEND BUTTON BY LAYOUT ID
         Button send = (Button) Objects.requireNonNull(getView()).findViewById(R.id.SendBtn);
         //SETS TEXT BOX = TO TEXT BOX BY LAYOUT ID
+        mAuth = FirebaseAuth.getInstance();
         txtBox = getView().findViewById(R.id.MessageTxt);
-        //mCurrentUserId = mAuth.getCurrentUser().get();
+        mCurrentUserId = mAuth.getCurrentUser();
         mAdapter = new MessageAdapter(getContext(), messagesList);
         mMessagesList= (RecyclerView)getView().findViewById(R.id.messages_list);
         mLinearLayout = new LinearLayoutManager(getActivity());
@@ -81,26 +88,34 @@ public class ChatFragment extends Fragment {
                 String message = txtBox.getText().toString();
                 //RESETS TEXT BOX TO BE EMPTY AFTER MESSAGE IS SENT
                 txtBox.setText("");
+
                 //HERE SENDER RECIPIENT AND MESSAGE OBJECTS ARE PASSED TO SEND MESSAGE FUNCTION
-                sendMessage("","", message);
+                sendMessage("sender","reciever", message);
             }
         });
     }
 
 
     private void loadMessages() {
+
+
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         //SETS REFERENCE = USERS UNDER USERS PATH IN DATABASE
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Messages");
-        reference.addChildEventListener(new ChildEventListener() {
+        bubble = getView().findViewById(R.id.message_text_layout);
+        final String message = txtBox.getText().toString();
+      //  final DatabaseReference reference = FirebaseDatabase.getInstance().getReference().getRoot();
+
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Messages").getRoot();
+        reference.child("Messages").child(message).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                Messages message = dataSnapshot.getValue(Messages.class);
-                messagesList.add(message);
+                Messages Message = dataSnapshot.child(message).getValue(Messages.class);
+               //reference.child("Messages").push().setValue(Message);
+                messagesList.add(Message);
                 mAdapter.notifyDataSetChanged();
                 mAdapter = new MessageAdapter(getContext(), messagesList);
-                //SETS ADAPTER TO RECYCLER VIEW
                 mMessagesList.setAdapter((RecyclerView.Adapter) mAdapter);
+
             }
 
             @Override
@@ -123,39 +138,6 @@ public class ChatFragment extends Fragment {
 
             }
         });
-
-
-//        mRootRef.child("Messages").addChildEventListener(new ChildEventListener() {
-//////.child(mCurrentUserId)
-////
-////            @Override
-////            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-////                Messages message = dataSnapshot.getValue(Messages.class);
-////                messagesList.add(message);
-////                mAdapter.notifyDataSetChanged();
-////            }
-////
-////            @Override
-////            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-////
-////            }
-////
-////            @Override
-////            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-////
-////            }
-////
-////            @Override
-////            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-////
-////            }
-////
-////            @Override
-////            public void onCancelled(@NonNull DatabaseError databaseError) {
-////
-////            }
-////        });
-////
     }
 
 
