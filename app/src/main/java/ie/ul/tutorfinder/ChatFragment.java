@@ -1,5 +1,6 @@
 package ie.ul.tutorfinder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,12 @@ public class ChatFragment extends Fragment {
     private LinearLayoutManager linearLayoutManager;
 
     private MessageAdapter messageAdapter;
+    private Intent intent;
+
+
+    private FirebaseUser fuser;
+
+    private FirebaseAuth mAuth;
 
 
 
@@ -62,8 +69,11 @@ public class ChatFragment extends Fragment {
         Button send = (Button) Objects.requireNonNull(getView()).findViewById(R.id.SendBtn);
         //SETS TEXT BOX = TO TEXT BOX BY LAYOUT ID
 
-        txtBox = getView().findViewById(R.id.MessageTxt);
 
+        fuser = FirebaseAuth.getInstance().getCurrentUser();
+        txtBox = getView().findViewById(R.id.MessageTxt);
+        intent = getActivity().getIntent();
+        final String userid = intent.getStringExtra("userid");
         messageAdapter = new MessageAdapter(getContext(), messagesList);
         messagesRecyclerList= (RecyclerView)getView().findViewById(R.id.messages_list);
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -83,7 +93,7 @@ public class ChatFragment extends Fragment {
                 txtBox.setText("");
 
                 //HERE SENDER RECIPIENT AND MESSAGE OBJECTS ARE PASSED TO SEND MESSAGE FUNCTION
-                sendMessage("sender","reciever", message);
+                sendMessage(fuser.getUid(),userid, message);
             }
         });
     }
@@ -135,13 +145,13 @@ public class ChatFragment extends Fragment {
 
 
     // SEND MESSAGE FUNCTION USES HASHMAP TO PUSH MESSAGE TO DATABASE
-    private void sendMessage(String sender, String recipient, String message) {
+    private void sendMessage(String Sender, String Recipient, String message) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         //HASHMAP CREATED AND SENDER, RECIEVER AND MESSAGE ARE PASSED TO FIREBASE REALTIME DB
         HashMap<String, Object> hasher = new HashMap<>();
-        hasher.put("Sent by", sender);
-        hasher.put("Received by", recipient);
+        hasher.put("Sender", Sender);
+        hasher.put("Recipient", Recipient);
         hasher.put("Message", message);
         //SETS ABOVE VARIABLES TO RELEVANT VALUES IN MESSAGES
         reference.child("Messages").push().setValue(hasher);
