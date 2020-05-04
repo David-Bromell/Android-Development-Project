@@ -43,7 +43,7 @@ public class ChatFragment extends Fragment {
     private Intent intent;
 
 
-    private FirebaseUser fuser;
+    private FirebaseUser fuser, oUser;
 
     private FirebaseAuth mAuth;
 
@@ -73,7 +73,8 @@ public class ChatFragment extends Fragment {
         fuser = FirebaseAuth.getInstance().getCurrentUser();
         txtBox = getView().findViewById(R.id.MessageTxt);
         intent = getActivity().getIntent();
-        final String userid = intent.getStringExtra("userid");
+        final String userName = fuser.getUid();
+        final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         messageAdapter = new MessageAdapter(getContext(), messagesList);
         messagesRecyclerList= (RecyclerView)getView().findViewById(R.id.messages_list);
         linearLayoutManager = new LinearLayoutManager(getActivity());
@@ -93,7 +94,7 @@ public class ChatFragment extends Fragment {
                 txtBox.setText("");
 
                 //HERE SENDER RECIPIENT AND MESSAGE OBJECTS ARE PASSED TO SEND MESSAGE FUNCTION
-                sendMessage(fuser.getUid(),userid, message);
+                sendMessage(fuser.getUid(),fuser.toString(), message);
             }
         });
     }
