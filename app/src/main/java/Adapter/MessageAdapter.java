@@ -1,6 +1,8 @@
 package Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,7 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -17,6 +22,7 @@ import ie.ul.tutorfinder.R;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageViewHolder> {
     private List<Messages> mMessageList;
+    private FirebaseAuth mAuth;
 
     public MessageAdapter(Context context, List<Messages> mMessageList) {
         this.mMessageList = mMessageList;
@@ -30,9 +36,26 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.MessageV
     }
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.MessageViewHolder holder, int position) {
-    Messages c =mMessageList.get(position);
+
+        mAuth = FirebaseAuth.getInstance();
+       String currentUserId = mAuth.getCurrentUser().getUid();
+
+        Messages c =mMessageList.get(position);
+
+        String from_user = c.getSender();
+
+        if(from_user.equals(currentUserId)){
+            holder.messageText.setBackgroundColor(Color.BLUE);
+            holder.messageText.setTextColor(Color.WHITE);
+        }else{
+
+            holder.messageText.setBackgroundColor(R.drawable.message_text_background);
+            holder.messageText.setTextColor(Color.WHITE);
+        }
+
     holder.messageText.setText(c.getMessage());
     }
 
