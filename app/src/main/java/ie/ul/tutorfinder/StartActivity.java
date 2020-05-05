@@ -1,11 +1,14 @@
 package ie.ul.tutorfinder;
 
+import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -59,6 +62,7 @@ public class StartActivity extends AppCompatActivity {
         return (calendar.getTime().after(date));
     }
 
+    @SuppressLint("WrongViewCast")
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -120,10 +124,10 @@ public class StartActivity extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<AuthResult> task) {
                                         if (task.isSuccessful()) {
 
-                                            //String Long, Lat;
 
-                                           // if(Longitude.getText().toString().isEmpty()) {
-                                               // Long = "-8.5869449";
+
+                                           // if(userType.getText().toString().isEmpty()) {
+                                             //  userType = "student";
                                            // }
                                            // else{
                                                 //Long = Longitude.getText().toString();

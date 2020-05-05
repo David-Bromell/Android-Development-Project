@@ -105,13 +105,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String name, address;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    //if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
+                    if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
                         name = ds.child( "name" ).getValue( String.class );
                         address = ds.child( "address" ).getValue( String.class );
                         nameList.add( name );
                         addressList.add( address );
                     }
-
+                }
                 updateMap();
             }
 

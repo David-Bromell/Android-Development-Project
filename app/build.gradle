@@ -45,6 +45,7 @@ dependencies {
     implementation "com.paypal.sdk:paypal-android-sdk:2.16.0"
     implementation 'com.google.firebase:firebase-messaging:20.1.6'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
+    implementation 'androidx.recyclerview:recyclerview:1.2.0-alpha03'
 
 
 }

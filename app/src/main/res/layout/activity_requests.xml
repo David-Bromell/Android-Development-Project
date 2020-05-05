@@ -9,16 +9,16 @@
     <include layout="@layout/app_bar_layout" android:id="@+id/requests_page_toolbar"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/requestTextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="66dp"
         android:layout_marginTop="209dp"
         android:layout_marginEnd="66dp"
-        android:text="You have no requests yet!"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

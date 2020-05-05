@@ -2,4 +2,5 @@
 <resources>
     <item name="listView" type="id" />
     <item name="etAddress" type="id" />
+    <item name="requestTextview" type="id" />
 </resources>
