@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +34,8 @@ public class RequestsActivity extends AppCompatActivity {
     String uid;
     ArrayAdapter<String> adapter;
     DatabaseReference databaseReference;
+    private RecyclerView mRequestList;
+
 
 
     private Toolbar mToolbar;
@@ -71,10 +75,13 @@ public class RequestsActivity extends AppCompatActivity {
         setContentView( R.layout.activity_requests );
 
         addActionBar();
-      /*  FirebaseAuth mAuth = FirebaseAuth.getInstance();
+      FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final String currentUserId = mAuth.getCurrentUser().getUid();
         //userRef.keepSynced( true );
-        requestTextView = findViewById( R.id.requestTextview );
+
+        mRequestList = (RecyclerView)findViewById( R.id.request_list );
+        mRequestList.setHasFixedSize( true );
+        mRequestList.setLayoutManager( new LinearLayoutManager( this ) );
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         uid = user.getUid();
@@ -99,8 +106,8 @@ public class RequestsActivity extends AppCompatActivity {
                     request = ds.child( "request_type" ).getValue( String.class );
                    nameList.add( name );
                     requestList.add( request );
-                    for (int i = 0; i < requestList.size(); i++) {
-                        requestTextView.setText(requestList.get( i ));
+                    for (int i = 0; i < nameList.size(); i++) {
+                        requestTextView.setText(nameList.get( i ));
 
 
 
@@ -114,8 +121,8 @@ public class RequestsActivity extends AppCompatActivity {
             }
         });
     }
- */
-    }
+
+
         private void loginRedirect () {
             Intent startIntent = new Intent( RequestsActivity.this, LoginActivity.class );
             startActivity( startIntent );

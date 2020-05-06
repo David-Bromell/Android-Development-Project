@@ -8,6 +8,9 @@
 
     <include layout="@layout/app_bar_layout" android:id="@+id/requests_page_toolbar"/>
 
+
+
+
     <TextView
         android:id="@+id/requestTextview"
         android:layout_width="wrap_content"
@@ -20,5 +23,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/request_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="72dp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp"></androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
