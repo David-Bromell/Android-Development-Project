@@ -110,6 +110,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         address = ds.child( "address" ).getValue( String.class );
                         nameList.add( name );
                         addressList.add( address );
+
                     }
                 }
                 updateMap();

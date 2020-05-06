@@ -3,6 +3,7 @@ package ie.ul.tutorfinder;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,10 +31,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import Adapter.UserAdaptProfo;
+
 public class RequestsActivity extends AppCompatActivity {
     public TextView requestTextView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    List<String> nameList, requestList;
+    List<String>  requestList;
     String uid;
     ArrayAdapter<String> adapter;
     DatabaseReference databaseReference;
@@ -43,6 +46,11 @@ public class RequestsActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private RecyclerView mUserList;
     private DatabaseReference mUserDataRef;
+    private FirebaseUser current_user;
+    private static final String TAG = "RequestsActivity";
+
+     List<User> User;
+
 
 
 
@@ -79,11 +87,32 @@ public class RequestsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_requests );
-        uid = user.getUid();
-        FirebaseUser current_user = FirebaseAuth.getInstance().getCurrentUser();
+         current_user = FirebaseAuth.getInstance().getCurrentUser();
         String current_userID = current_user.getUid();
         addActionBar();
-        mUserDataRef = FirebaseDatabase.getInstance().getReference().child("friend_requests").child(current_userID).child( "request_type" );
+        mUserDataRef = FirebaseDatabase.getInstance().getReference().child("friend_requests").child(current_userID);
+        mUserDataRef.addValueEventListener( new ValueEventListener(){
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                                    for (DataSnapshot object : dataSnapshot.getChildren()) {
+                                                        if (object.child( "request_type" ).equals( "received" )) {
+
+                                                            requestList.add( object.getValue( String.class ) );
+                                                            for (int i = 0; i < requestList.size(); i++) {
+                                                                object.child( requestList.get( i ));
+                                                                        User.get( i );
+                                                            }
+                                                        }
+
+
+                                                    }
+                                                }
+
+                                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                                }
+                                            });
 
         mUserList = findViewById(R.id.userListRView);
         mUserList.setHasFixedSize(true);
