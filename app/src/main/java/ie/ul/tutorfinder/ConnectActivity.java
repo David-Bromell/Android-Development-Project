@@ -86,7 +86,7 @@ public class ConnectActivity extends AppCompatActivity {
                         .build();
 
         FirebaseRecyclerAdapter<User, userViewContainer> firebaseRecyclerAdapter;
-        firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<User, userViewContainer>(options) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<User,userViewContainer>(options) {
 
             @Override
             protected void onBindViewHolder(@NonNull userViewContainer userViewContainer, int i, @NonNull User user) {

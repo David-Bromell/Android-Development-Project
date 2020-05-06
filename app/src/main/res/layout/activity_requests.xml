@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".RequestsActivity">
 
-    <include layout="@layout/app_bar_layout" android:id="@+id/requests_page_toolbar"/>
+    <include layout="@layout/activity_connect" android:id="@+id/requests_page_toolbar"/>
 
 
 
