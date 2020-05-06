@@ -16,7 +16,7 @@
 
         <EditText
             android:id="@+id/enterAmt"
-            android:hint="Enter Amount to Pay"
+            android:hint="Enter how much you would like to top up by here!"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 

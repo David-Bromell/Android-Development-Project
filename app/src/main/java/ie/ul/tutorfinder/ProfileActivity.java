@@ -142,6 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String currentUserId = mAuth.getCurrentUser().getUid();
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
+        userRef.keepSynced( true );
 
         FirstNameTextView = findViewById( R.id.first_Name_TextView );
         EmailTextView = findViewById( R.id.email_TextView );
@@ -152,6 +153,8 @@ public class ProfileActivity extends AppCompatActivity {
         if(user!=null){
             Glide.with( this ).load(user.getPhotoUrl()).into(profileImage);
         }
+
+
 
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -214,6 +217,7 @@ public class ProfileActivity extends AppCompatActivity {
                     profileImage.setImageBitmap( bitnmap );
                     handleUpload( bitnmap );
             }
+
         }
     }
 

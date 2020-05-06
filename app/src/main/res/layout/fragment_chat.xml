@@ -32,9 +32,11 @@
         tools:layout_editor_absoluteY="115dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/messages_list_users"
-        android:layout_width="408dp"
-        android:layout_height="549dp" />
+        android:id="@+id/messages_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/MessageTxt"
+        android:layout_marginBottom="2dp" />
 
 
 </RelativeLayout>

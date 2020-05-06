@@ -82,11 +82,11 @@ public class ConnectActivity extends AppCompatActivity {
 
         FirebaseRecyclerOptions<User> options =
                 new FirebaseRecyclerOptions.Builder<User>()
-                .setQuery(mUserDataRef, User.class)
-                .build();
+                        .setQuery(mUserDataRef, User.class)
+                        .build();
 
         FirebaseRecyclerAdapter<User, userViewContainer> firebaseRecyclerAdapter;
-        firebaseRecyclerAdapter= new FirebaseRecyclerAdapter<User, userViewContainer>(options) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<User,userViewContainer>(options) {
 
             @Override
             protected void onBindViewHolder(@NonNull userViewContainer userViewContainer, int i, @NonNull User user) {
