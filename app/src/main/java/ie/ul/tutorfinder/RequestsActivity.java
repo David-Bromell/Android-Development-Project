@@ -1,20 +1,22 @@
 package ie.ul.tutorfinder;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +27,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class RequestsActivity extends AppCompatActivity {
     public TextView requestTextView;
@@ -35,7 +36,6 @@ public class RequestsActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     DatabaseReference databaseReference;
     private RecyclerView mRequestList;
-
 
 
     private Toolbar mToolbar;
@@ -75,11 +75,11 @@ public class RequestsActivity extends AppCompatActivity {
         setContentView( R.layout.activity_requests );
 
         addActionBar();
-      FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final String currentUserId = mAuth.getCurrentUser().getUid();
         //userRef.keepSynced( true );
 
-        mRequestList = (RecyclerView)findViewById( R.id.request_list );
+        mRequestList = (RecyclerView) findViewById( R.id.request_list );
         mRequestList.setHasFixedSize( true );
         mRequestList.setLayoutManager( new LinearLayoutManager( this ) );
 
@@ -88,15 +88,14 @@ public class RequestsActivity extends AppCompatActivity {
 
         nameList = new ArrayList<>();
         requestList = new ArrayList<>();
-        databaseReference = FirebaseDatabase.getInstance().getReference( "friend_requests" );
+        databaseReference = FirebaseDatabase.getInstance().getReference().child( "friend_requests" );
 
         databaseReference.addValueEventListener( new ValueEventListener() {
 
 
-
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-               nameList.clear();
+                nameList.clear();
                 requestList.clear();
 
                 String name, request;
@@ -104,11 +103,10 @@ public class RequestsActivity extends AppCompatActivity {
 
                     name = ds.child( uid ).getValue( String.class );
                     request = ds.child( "request_type" ).getValue( String.class );
-                   nameList.add( name );
+                    nameList.add( name );
                     requestList.add( request );
                     for (int i = 0; i < nameList.size(); i++) {
-                        requestTextView.setText(nameList.get( i ));
-
+                        requestTextView.setText( nameList.get( i ) );
 
 
                     }
@@ -119,16 +117,60 @@ public class RequestsActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        } );
+    }
+
+    @Override
+    protected void onStart() {
+
+        super.onStart();
+
+        FirebaseRecyclerOptions<friend_requests> options =
+                new FirebaseRecyclerOptions.Builder<friend_requests>()
+                        .setQuery(databaseReference, friend_requests.class)
+                        .build();
+
+        FirebaseRecyclerAdapter<friend_requests, RequestViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<friend_requests, RequestViewHolder>(options){
+
+
+
+
+
+
+            @Override
+            protected void onBindViewHolder(@NonNull RequestViewHolder requestViewHolder, int i, @NonNull friend_requests friend_requests) {
+
+            }
+
+            @NonNull
+            @Override
+            public RequestViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                return null;
+            }
+        };
+
     }
 
 
-        private void loginRedirect () {
-            Intent startIntent = new Intent( RequestsActivity.this, LoginActivity.class );
-            startActivity( startIntent );
-            finish();
+    public class RequestViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+
+        public RequestViewHolder(@NonNull View itemView) {
+
+            super( itemView );
+            mView = itemView;
         }
 
     }
+
+    private void loginRedirect() {
+        Intent startIntent = new Intent( RequestsActivity.this, LoginActivity.class );
+        startActivity( startIntent );
+        finish();
+
+    }
+}
+
+
 
 
