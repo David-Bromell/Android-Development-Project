@@ -105,7 +105,7 @@ public class ProfileActivity extends AppCompatActivity {
         Button myLessons = findViewById(R.id.myLessonsbtn);
         Button myRequests = findViewById(R.id.requestsBtn);
         Button paymentBtn = findViewById(R.id.paymentBtn);
-        Button mySettings = findViewById(R.id.mySettingsbtn);
+
 
         myLessons.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,12 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
 
         } );
-        mySettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMySettingsActivity();
-            }
-        });
+
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String currentUserId = mAuth.getCurrentUser().getUid();
