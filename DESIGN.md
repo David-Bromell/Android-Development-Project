@@ -1,4 +1,4 @@
-# Technical Design of NameOfMobileApp
+# Technical Design of Tutor Finder
 
 ## Technologies used
 * Google Maps API
@@ -16,6 +16,9 @@ proved crucial to our team when it came to troubleshooting various aspects of th
 # Paypal
 * We chose to use paypal due to its ease of use and the ease of accesability of the platform for each user. The majority of people have
 paypal accounts and the platform is reknowned for both its security and reliability. 
+
+# Google Maps
+* We selected the google maps api in oder to allow the user to find tutors directly on the map and see if there are any around their location. We used Google Maps because the api is simple to use, Google Maps are fairly accurate and with the ability to click on a pin and navigate to it, it enhances the user experience of our app. 
 
 ## Any lessons learned? E.g., what would you do differently next time?
 Throughout this project we found that time management and planning ahead were crucial to the applications development,
