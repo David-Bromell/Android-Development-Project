@@ -38,7 +38,7 @@ import java.util.List;
  * it inside the SupportMapFragment. This method will only be triggered once the user has
  * installed Google Play services and returned to the app.
  */
-
+//The maps activity is used for the locating a tutor or student, and plots all the corresponding users on the mpa using a Geolocation method
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
 
@@ -52,6 +52,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ArrayAdapter<String>adapter;
     String strAddress = "Ballinagarde, Ballyneety";
 
+
+    //Geo location method which takes a string, and converts it to Longitude and Lattitude using the Geocoder
     public LatLng getLocationFromAddress(Context context, String strAddress) {
 
         Geocoder coder = new Geocoder(context);
@@ -105,7 +107,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String name, address;
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) {
+                    if (ds.child( "userType" ).getValue( String.class ).equals( "Tutor" )) { //Datasnap shot from the Users database //
                         name = ds.child( "name" ).getValue( String.class );
                         address = ds.child( "address" ).getValue( String.class );
                         nameList.add( name );
@@ -147,9 +149,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker( new MarkerOptions().position( univLimerick ).title( "University of Limerick" ) );
         mMap.moveCamera( CameraUpdateFactory.newLatLng( univLimerick ) );
 
-          LatLng yeet = getLocationFromAddress(MapsActivity.this, "disney land paris");
-        mMap.addMarker( new MarkerOptions().position( yeet ).title( "disney land" ) );
-        mMap.moveCamera( CameraUpdateFactory.newLatLng( yeet ) );
+      //    LatLng yeet = getLocationFromAddress(MapsActivity.this, "disney land paris"); Geo location test to see if string input works for geolocating
+     //   mMap.addMarker( new MarkerOptions().position( yeet ).title( "disney land" ) );
+       // mMap.moveCamera( CameraUpdateFactory.newLatLng( yeet ) );
     }
 
 }
