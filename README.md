@@ -14,4 +14,6 @@ access educational resources while contemporaneously allowing students/tutors/le
 * Login and use the app via its intuitive buttons!
 * Logging in will bring you to its main navigation page.
 * From this page one can access their profile, my tutors, find tutors, connect page and more!
+ # Note
+* Please create a tutor and a student account in order to test the messaging platform 
 
