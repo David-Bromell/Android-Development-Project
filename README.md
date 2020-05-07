@@ -11,4 +11,4 @@ access educational resources while contemporaneously allowing students/tutors/le
 ## Getting started
 
 * Download the application and create a user account via our registration page!
-* Login and use the app via its intuitive buttons! 
+* Login and use the app via its intuitive buttons!
