@@ -32,24 +32,12 @@ public class ProfileSettings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile_settings);
+        //setContentView(R.layout.activity_profile_settings);
 
-        Button changeName = findViewById(R.id.chngNamebtn);
-        Button changeNumber = findViewById(R.id.chngPNumbtn);
+        //Button changeName = findViewById(R.id.chngNamebtn);
+       // Button changeNumber = findViewById(R.id.chngPNumbtn);
 
-        changeName.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNameDialog();
-            }
-        });
 
-        changeNumber.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openNumberDialog();
-            }
-        });
 
         mCurrentUser = FirebaseAuth.getInstance().getCurrentUser();
         String user_id = mCurrentUser.getUid();
