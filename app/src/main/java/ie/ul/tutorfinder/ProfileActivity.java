@@ -37,8 +37,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 
 public class ProfileActivity extends AppCompatActivity {
+    //This activity was used to populate the users information from the database and onto the profiles page
 
-    private TextView FirstNameTextView, EmailTextView, PhoneTextView, BirthDateTextView;
+    private TextView FirstNameTextView, EmailTextView, PhoneTextView, BirthDateTextView; //Textviews
     ImageView profileImage;
     int TAKE_IMAGE_CODE = 10001;
     public static final String TAG = "TAG";
@@ -139,14 +140,14 @@ public class ProfileActivity extends AppCompatActivity {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUserId);
         userRef.keepSynced( true );
 
-        FirstNameTextView = findViewById( R.id.first_Name_TextView );
+        FirstNameTextView = findViewById( R.id.first_Name_TextView );//Different texviews for name, email, phone, birthdate and profile image from the database
         EmailTextView = findViewById( R.id.email_TextView );
         PhoneTextView = findViewById( R.id.phone_TextView );
         BirthDateTextView = findViewById( R.id.birthDate_TextView );
         profileImage = findViewById( R.id.profileImageView );
 
         if(user!=null){
-            Glide.with( this ).load(user.getPhotoUrl()).into(profileImage);
+            Glide.with( this ).load(user.getPhotoUrl()).into(profileImage); //Glide being used to save the profile picture onto the page
         }
 
 
@@ -155,7 +156,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.exists()) {//datasnap shot of the children drom Database for current user
                     String userName = dataSnapshot.child( "name" ).getValue( String.class );
                     String email = dataSnapshot.child( "email" ).getValue( String.class );
                     String birthdate = dataSnapshot.child( "birthdate" ).getValue( String.class );
@@ -164,7 +165,7 @@ public class ProfileActivity extends AppCompatActivity {
                     FirstNameTextView.setText( "Welcome to your profile, " + userName + "!" );
                     EmailTextView.setText( "EMAIL: " + email );
                     PhoneTextView.setText( "CONTACT NUM: " + phone );
-                    BirthDateTextView.setText( "DOB: " + birthdate );
+                    BirthDateTextView.setText( "DOB: " + birthdate ); //poppulating the firstname, email address, phone number and birthdate onto the profile page
                 }
             }
 
@@ -220,7 +221,7 @@ public class ProfileActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitnmap.compress( Bitmap.CompressFormat.JPEG, 100, baos );
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        final StorageReference reference = FirebaseStorage.getInstance().getReference().child( "profileImages" ).child( uid + ".jpeg" );
+        final StorageReference reference = FirebaseStorage.getInstance().getReference().child( "profileImages" ).child( uid + ".jpeg" );//adding Jpeg to the database
 
         reference.putBytes( baos.toByteArray() )
                 .addOnSuccessListener( new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -242,7 +243,7 @@ public class ProfileActivity extends AppCompatActivity {
         reference.getDownloadUrl().addOnSuccessListener( new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
-            Log.d( TAG, "OnSuccess:"+ uri );
+            Log.d( TAG, "OnSuccess:"+ uri );//succesfully uploaded an image
             setUserProfileUrl( uri );
             }
         } );
