@@ -1,4 +1,4 @@
-# Navigation Structure of NameOfMobileApp
+# Navigation Structure of Tutor Finder
 
 * Create a user account via entering all of your user details on our registrartion page
 * Login with the user you have created!
