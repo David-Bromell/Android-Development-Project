@@ -13,5 +13,12 @@ This allows users to keep track of their profile details and allows them to make
 
 # 3)My Messages
 This function provides all users with a direct messaging service which enables them to directly contact the tutors they may require. In addition this function is also to provide security for both tutors an students are no personal information will be required in order for them to contact each other
+4)My Lessons
+This function provides an inbuilt calender which users can utilise to keep track of any tutoirng sessions which they may have booked
 
+5)Find Tutors
+The purpose of this function is to enable students to easily find tutors in their area.
+
+6)Connect
+The purpose of this function is to enable students to connect with a tutor, i.e. the students are able to send the tutor a request, they may then message the tutor directly on the application.
 
