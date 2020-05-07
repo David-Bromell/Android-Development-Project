@@ -1,7 +1,7 @@
 package ie.ul.tutorfinder;
 
 public class User {
-
+//class used for the user model
     private String Name, email, phone, userType, Birthdate, Address  = null;
 
     public User() {

@@ -42,7 +42,7 @@ public class OtherProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_other_profile);
 
         final String user_id = getIntent().getStringExtra("user_id");
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(user_id);//database reference for the Users database in firebase
         friendReqRef = FirebaseDatabase.getInstance().getReference().child("friend_requests");
         friendRef = FirebaseDatabase.getInstance().getReference().child("friends");
         mNotificationDatabase = FirebaseDatabase.getInstance().getReference().child("notifications");
@@ -75,7 +75,7 @@ public class OtherProfileActivity extends AppCompatActivity {
 
                         if(dataSnapshot.hasChild(user_id)){
 
-                            String reqType = dataSnapshot.child(user_id).child("request_type").getValue(String.class);
+                            String reqType = dataSnapshot.child(user_id).child("request_type").getValue(String.class);//datasnap shot for request type
 
                             if(reqType.equals("received")){
                                 current_state="request_received";

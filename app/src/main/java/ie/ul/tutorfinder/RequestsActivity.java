@@ -33,6 +33,8 @@ import java.util.List;
 
 import Adapter.UserAdaptProfo;
 
+
+//Activity used to display a users friend requests
 public class RequestsActivity extends AppCompatActivity {
     public TextView requestTextView;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -96,10 +98,10 @@ public class RequestsActivity extends AppCompatActivity {
                                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                                                     for (DataSnapshot object : dataSnapshot.getChildren()) {
-                                                        if (object.child( "request_type" ).equals( "received" )) {
+                                                        if (object.child( "request_type" ).equals( "received" )) {//populating requestlist array if the request type from the database is received
 
                                                             requestList.add( object.getValue( String.class ) );
-                                                            for (int i = 0; i < requestList.size(); i++) {
+                                                            for (int i = 0; i < requestList.size(); i++) {//for loop to print the array
                                                                 object.child( requestList.get( i ));
                                                                         User.get( i );
                                                             }
